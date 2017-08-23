@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{79B503BE-126E-47FE-AB95-D3F3B81236DE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mpLayoutManager</RootNamespace>
+    <AssemblyName>mpLayoutManager_2010</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\..\ModPlus_builded\Functions\mpLayoutManager\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;ac2010</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="acdbmgd">
+      <HintPath>..\..\..\..\_Acad dlls\2010\acdbmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="acmgd">
+      <HintPath>..\..\..\..\_Acad dlls\2010\acmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MahApps.Metro">
+      <HintPath>..\..\..\..\..\ModPlus_builded\MahApps.Metro.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ModPlus_2010">
+      <HintPath>..\..\..\..\..\ModPlus_builded\ModPlus_2010.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="mpMsg">
+      <HintPath>..\..\..\..\..\ModPlus_builded\mpMsg.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="mpPInterface">
+      <HintPath>..\..\..\..\..\ModPlus_builded\mpPInterface.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="mpSettings">
+      <HintPath>..\..\..\..\..\ModPlus_builded\mpSettings.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DragAdorner.cs" />
+    <Compile Include="FunctionStart.cs" />
+    <Compile Include="Interface.cs" />
+    <Compile Include="ListViewDragDropManager.cs" />
+    <Compile Include="lmPalette.xaml.cs">
+      <DependentUpon>lmPalette.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MouseUtilities.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\LayoutNewName.xaml.cs">
+      <DependentUpon>LayoutNewName.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\LmSettings.xaml.cs">
+      <DependentUpon>LmSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MoveCopyLayout.xaml.cs">
+      <DependentUpon>MoveCopyLayout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RenameLayout.xaml.cs">
+      <DependentUpon>RenameLayout.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MpLayoutManager_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MpLayoutManager_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="lmPalette.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\LayoutNewName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\LmSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MoveCopyLayout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RenameLayout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
