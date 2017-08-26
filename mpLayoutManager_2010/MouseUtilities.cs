@@ -3,14 +3,10 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
 
-namespace WPF.JoshSmith.Controls.Utilities
+namespace mpLayoutManager
 {
     public class MouseUtilities
     {
-        public MouseUtilities()
-        {
-        }
-
         [DllImport("user32.dll", CharSet = CharSet.None, ExactSpelling = false)]
         private static extern bool GetCursorPos(ref MouseUtilities.Win32Point pt);
 

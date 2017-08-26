@@ -24,12 +24,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ModPlusAPI;component/Windows/WinResources/Styles.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="BtStyle"
-                     TargetType="{x:Type Button}"
-                     BasedOn="{StaticResource SquareMetroButton}">
-                <Setter Property="Control.BorderThickness" Value="1"/>
-            </Style>
         </ResourceDictionary>
     </controls:MetroWindow.Resources>
     <Grid Margin="5">
@@ -86,7 +82,6 @@
                      Grid.Column="1"
                      Grid.Row="0"
                      Margin="2"
-                     Style="{StaticResource BtStyle}"
                      HorizontalAlignment="Left"
                      VerticalAlignment="Center"
                      MinWidth="75"
@@ -96,7 +91,6 @@
                      Grid.Column="1"
                      Grid.Row="1"
                      Margin="2"
-                     Style="{StaticResource BtStyle}"
                      HorizontalAlignment="Right"
                      VerticalAlignment="Center"
                      MinWidth="75"

@@ -4,23 +4,14 @@ using AcApp = Autodesk.AutoCAD.ApplicationServices.Application;
 using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 #endif
 using Autodesk.AutoCAD.DatabaseServices;
-using MahApps.Metro.Controls;
-using ModPlus;
-using mpMsg;
-using mpSettings;
 using System;
-using System.CodeDom.Compiler;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Markup;
 using Autodesk.AutoCAD.ApplicationServices;
+using ModPlusAPI.Windows;
+using ModPlusAPI.Windows.Helpers;
 
 namespace mpLayoutManager.Windows
 {
@@ -34,11 +25,8 @@ namespace mpLayoutManager.Windows
         public MoveCopyLayout()
         {
             InitializeComponent();
-            MpWindowHelpers.OnWindowStartUp(this, 
-                MpSettings.GetValue("Settings", "MainSet", "Theme"),
-                MpSettings.GetValue("Settings", "MainSet", "AccentColor"),
-                MpSettings.GetValue("Settings", "MainSet", "BordersType"));
-            base.Loaded += new RoutedEventHandler(RenameLayout_Loaded);
+            this.OnWindowStartUp();
+            Loaded += RenameLayout_Loaded;
         }
 
         private void BtAccept_OnClick(object sender, RoutedEventArgs e)
@@ -48,7 +36,7 @@ namespace mpLayoutManager.Windows
 
         private void BtCancel_OnClick(object sender, RoutedEventArgs e)
         {
-            DialogResult = new bool?(false);
+            DialogResult = false;
         }
         
 
@@ -56,7 +44,7 @@ namespace mpLayoutManager.Windows
         {
             if (e.Key == Key.Escape)
             {
-                DialogResult = new bool?(false);
+                DialogResult = false;
             }
             if (e.Key == Key.Return)
             {
@@ -68,40 +56,34 @@ namespace mpLayoutManager.Windows
         {
             if (LbLayouts.SelectedIndex != -1)
             {
-                MoveCopyLayout.LayoutForBinding selectedItem = LbLayouts.SelectedItem as MoveCopyLayout.LayoutForBinding;
-                SelectedLayoutName = selectedItem.LayoutName;
-                SelectedLayoutTabOrder = selectedItem.TabOrder;
-                DialogResult = new bool?(true);
+                var selectedItem = LbLayouts.SelectedItem as LayoutForBinding;
+                if (selectedItem != null)
+                {
+                    SelectedLayoutName = selectedItem.LayoutName;
+                    SelectedLayoutTabOrder = selectedItem.TabOrder;
+                }
+                DialogResult = true;
             }
             else
             {
-                MpMsgWin.Show("Нужно выбрать лист в списке!");
+                ModPlusAPI.Windows.MessageBox.Show("Нужно выбрать лист в списке!", MessageBoxIcon.Alert);
             }
         }
 
         private void RenameLayout_Loaded(object sender, RoutedEventArgs e)
         {
-            Database database;
             try
             {
                 SizeToContent = SizeToContent.Manual;
 
-                Document mdiActiveDocument = AcApp.DocumentManager.MdiActiveDocument;
-                if (mdiActiveDocument != null)
+                var mdiActiveDocument = AcApp.DocumentManager.MdiActiveDocument;
+                var database = mdiActiveDocument != null ? mdiActiveDocument.Database : null;
+                if (database != null)
                 {
-                    database = mdiActiveDocument.Database;
-                }
-                else
-                {
-                    database = null;
-                }
-                Database database1 = database;
-                if (database1 != null)
-                {
-                    ObservableCollection<MoveCopyLayout.LayoutForBinding> observableCollection = new ObservableCollection<MoveCopyLayout.LayoutForBinding>();
-                    using (Transaction transaction = database1.TransactionManager.StartTransaction())
+                    ObservableCollection<LayoutForBinding> observableCollection = new ObservableCollection<LayoutForBinding>();
+                    using (Transaction transaction = database.TransactionManager.StartTransaction())
                     {
-                        DBDictionary obj = transaction.GetObject(database1.LayoutDictionaryId, OpenMode.ForRead, false) as DBDictionary;
+                        DBDictionary obj = transaction.GetObject(database.LayoutDictionaryId, OpenMode.ForRead, false) as DBDictionary;
                         if (obj != null)
                         {
                             foreach (DBDictionaryEntry dBDictionaryEntry in obj)
@@ -111,7 +93,7 @@ namespace mpLayoutManager.Windows
                                 {
                                     if (!layout.ModelType)
                                     {
-                                        observableCollection.Add(new MoveCopyLayout.LayoutForBinding()
+                                        observableCollection.Add(new LayoutForBinding
                                         {
                                             LayoutName = layout.LayoutName,
                                             TabOrder = layout.TabOrder
@@ -122,12 +104,12 @@ namespace mpLayoutManager.Windows
                         }
                         transaction.Commit();
                     }
-                    observableCollection = new ObservableCollection<MoveCopyLayout.LayoutForBinding>(
+                    observableCollection = new ObservableCollection<LayoutForBinding>(
                         from x in observableCollection
                         orderby x.TabOrder
                         select x)
                     {
-                        new MoveCopyLayout.LayoutForBinding()
+                        new LayoutForBinding
                         {
                             LayoutName = "(переместить в конец)",
                             TabOrder = -1
@@ -138,7 +120,7 @@ namespace mpLayoutManager.Windows
             }
             catch (Exception exception)
             {
-                MpExWin.Show(exception);
+                ExceptionBox.Show(exception);
             }
         }
         

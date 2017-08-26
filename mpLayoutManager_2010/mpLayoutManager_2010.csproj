@@ -9,25 +9,28 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>mpLayoutManager</RootNamespace>
     <AssemblyName>mpLayoutManager_2010</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\ModPlus_builded\Functions\mpLayoutManager\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\..\ModPlus\Functions\mpLayoutManager\</OutputPath>
     <DefineConstants>TRACE;DEBUG;ac2010</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <OutputPath>..\..\..\..\..\..\..\ModPlus\Functions\mpLayoutManager\</OutputPath>
+    <DefineConstants>TRACE;ac2010</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="acdbmgd">
@@ -39,23 +42,15 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="MahApps.Metro">
-      <HintPath>..\..\..\..\..\ModPlus_builded\MahApps.Metro.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\ModPlus\Extensions\MahApps.Metro.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ModPlusAPI">
+      <HintPath>..\..\..\..\..\..\..\ModPlus\Extensions\ModPlusAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ModPlus_2010">
-      <HintPath>..\..\..\..\..\ModPlus_builded\ModPlus_2010.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="mpMsg">
-      <HintPath>..\..\..\..\..\ModPlus_builded\mpMsg.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="mpPInterface">
-      <HintPath>..\..\..\..\..\ModPlus_builded\mpPInterface.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="mpSettings">
-      <HintPath>..\..\..\..\..\ModPlus_builded\mpSettings.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\ModPlus\Extensions\ModPlus_2010.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -79,16 +74,6 @@
     </Compile>
     <Compile Include="MouseUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="Windows\LayoutNewName.xaml.cs">
       <DependentUpon>LayoutNewName.xaml</DependentUpon>
     </Compile>
@@ -101,12 +86,6 @@
     <Compile Include="Windows\RenameLayout.xaml.cs">
       <DependentUpon>RenameLayout.xaml</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\MpLayoutManager_16x16.png" />

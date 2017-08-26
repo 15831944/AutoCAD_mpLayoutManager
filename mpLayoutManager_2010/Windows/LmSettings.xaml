@@ -1,17 +1,15 @@
 ﻿<controls:MetroWindow xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
- xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
- xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
- xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
- xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
- x:Class="mpLayoutManager.Windows.LmSettings"
-     WindowStartupLocation="CenterScreen"
-     MinWidth="350"
-     SizeToContent="WidthAndHeight"
-     Title="Менеджер листов: настройки"
-     ShowMaxRestoreButton="False"
-     ShowMinButton="False"
-     ShowTitleBar="False"
-     KeyDown="LmSettings_OnKeyDown">
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      x:Class="mpLayoutManager.Windows.LmSettings"
+                      WindowStartupLocation="CenterScreen"
+                      MinWidth="350"
+                      SizeToContent="WidthAndHeight"
+                      Title="Менеджер листов: настройки"
+                      ShowMaxRestoreButton="False"
+                      ShowMinButton="False"
+                      ShowTitleBar="False"
+                      KeyDown="LmSettings_OnKeyDown">
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -21,12 +19,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ModPlusAPI;component/Windows/WinResources/Styles.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="BtStyle"
-                     TargetType="{x:Type Button}"
-                     BasedOn="{StaticResource SquareMetroButton}">
-                <Setter Property="Control.BorderThickness" Value="1"/>
-            </Style>
         </ResourceDictionary>
     </controls:MetroWindow.Resources>
     <Grid Margin="5">
@@ -84,7 +78,6 @@
             <Button Name="BtClose"
                      Grid.Row="5"
                      HorizontalAlignment="Center"
-                     Style="{StaticResource BtStyle}"
                      Content="Закрыть"
                      Click="BtClose_OnClick"/>
         </Grid>

@@ -5,15 +5,14 @@ using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 #endif
 using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.Windows;
-using ModPlus;
-using mpMsg;
-using mpSettings;
 using System;
-using System.Collections;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
+using ModPlus;
+using ModPlusAPI;
+using ModPlusAPI.Windows;
 
 namespace mpLayoutManager
 {
@@ -21,33 +20,14 @@ namespace mpLayoutManager
     {
         private static PaletteSet _paletteSet;
 
-        public FunctionStart()
-        {
-        }
-
         private void _paletteSet_Load(object sender, PalettePersistEventArgs e)
         {
-            double num = (double)e.ConfigurationSection.ReadProperty("mpLayoutManager", 22.3);
+            e.ConfigurationSection.ReadProperty("mpLayoutManager", 22.3);
         }
 
         private void _paletteSet_Save(object sender, PalettePersistEventArgs e)
         {
             e.ConfigurationSection.WriteProperty("mpLayoutManager", 32.3);
-        }
-
-        private void _paletteSet_StateChanged(object sender, PaletteSetStateEventArgs e)
-        {
-            try
-            {
-                if (e.NewState == StateEventIndex.Hide)
-                {
-                    _paletteSet = null;
-                }
-            }
-            catch (System.Exception exception)
-            {
-                MpExWin.Show(exception);
-            }
         }
 
         public static void AddToMpPalette(bool show)
@@ -66,7 +46,7 @@ namespace mpLayoutManager
                 if (!flag)
                 {
                     LmPalette lmPalette = new LmPalette();
-                    mpPaletteSet.Add("Менеджер листов", new ElementHost()
+                    mpPaletteSet.Add("Менеджер листов", new ElementHost
                     {
                         AutoSize = true,
                         Dock = DockStyle.Fill,
@@ -88,7 +68,7 @@ namespace mpLayoutManager
         {
             if (args.Name.Contains("ModPlus_"))
             {
-                AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+                AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
                 Start();
             }
             return null;
@@ -96,16 +76,18 @@ namespace mpLayoutManager
 
         public void Initialize()
         {
-            bool flag;
-            bool flag1 = bool.TryParse(MpSettings.GetValue("Settings", "mpLayoutManager", "AutoLoad"), out flag) & flag;
-            bool flag2 = bool.TryParse(MpSettings.GetValue("Settings", "mpLayoutManager", "AddToMpPalette"), out flag) & flag;
-            if (flag1 & !flag2)
+            var loadLayoutManager = bool.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings,
+                "mpLayoutManager", "AutoLoad"), out bool b) & b;
+            var addLayoutManagerToMpPalette = bool.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings,
+                "mpLayoutManager", "AddToMpPalette"), out b) & b;
+            if (loadLayoutManager & !addLayoutManagerToMpPalette)
             {
+
                 Start();
             }
-            else if (flag1 & flag2)
+            else if (loadLayoutManager & addLayoutManagerToMpPalette)
             {
-                AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+                AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
             }
         }
 
@@ -144,10 +126,10 @@ namespace mpLayoutManager
         [CommandMethod("ModPlus", "mpLayoutManager", CommandFlags.Modal)]
         public void Start()
         {
-            bool flag;
+            Statistic.SendCommandStarting(new Interface());
             try
             {
-                if (!(!bool.TryParse(MpSettings.GetValue("Settings", "mpLayoutManager", "AddToMpPalette"), out flag) | flag))
+                if (!(!bool.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpLayoutManager", "AddToMpPalette"), out bool b) | b))
                 {
                     RemoveFromMpPalette(false);
                     if (_paletteSet != null)
@@ -156,7 +138,7 @@ namespace mpLayoutManager
                     }
                     else
                     {
-                        _paletteSet = new PaletteSet("MP: Менеджер листов", new Guid("CC48331E-B912-44DF-B592-D5EF66D7673E"));
+                        _paletteSet = new PaletteSet("MP: Менеджер листов", "mpLayoutManager", new Guid("CC48331E-B912-44DF-B592-D5EF66D7673E"));
                         _paletteSet.Load += _paletteSet_Load;
                         _paletteSet.Save += _paletteSet_Save;
                         LmPalette lmPalette = new LmPalette();
@@ -184,7 +166,7 @@ namespace mpLayoutManager
             }
             catch (System.Exception exception)
             {
-                MpExWin.Show(exception);
+                ExceptionBox.Show(exception);
             }
         }
 
