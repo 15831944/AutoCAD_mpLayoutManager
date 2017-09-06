@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ModPlusAPI.Interfaces;
 
 namespace mpLayoutManager
@@ -8,7 +9,9 @@ namespace mpLayoutManager
         public SupportedProduct SupportedProduct => SupportedProduct.AutoCAD;
         public string Name => "mpLayoutManager";
         public string AvailProductExternalVersion => "2014";
-        public string ClassName => string.Empty;
+        public string FullClassName => string.Empty;
+        public string AppFullClassName => string.Empty;
+        public Guid AddInId => Guid.Empty;
         public string LName => "Менеджер листов";
         public string Description => "Менеджер листов чертежа, отображаемый в палитре";
         public string Author => "Пекшев Александр aka Modis";
