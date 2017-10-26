@@ -8,10 +8,11 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
-using Autodesk.AutoCAD.ApplicationServices;
 using ModPlusAPI.Windows;
 using ModPlusAPI.Windows.Helpers;
+using Visibility = System.Windows.Visibility;
 
 namespace mpLayoutManager.Windows
 {
@@ -26,7 +27,7 @@ namespace mpLayoutManager.Windows
         {
             InitializeComponent();
             this.OnWindowStartUp();
-            Loaded += RenameLayout_Loaded;
+            Loaded += MoveCopyLayout_Loaded;
         }
 
         private void BtAccept_OnClick(object sender, RoutedEventArgs e)
@@ -70,11 +71,12 @@ namespace mpLayoutManager.Windows
             }
         }
 
-        private void RenameLayout_Loaded(object sender, RoutedEventArgs e)
+        private void MoveCopyLayout_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
                 SizeToContent = SizeToContent.Manual;
+                PanelCopyCount.Visibility = Visibility.Collapsed;
 
                 var mdiActiveDocument = AcApp.DocumentManager.MdiActiveDocument;
                 var database = mdiActiveDocument != null ? mdiActiveDocument.Database : null;
@@ -141,6 +143,16 @@ namespace mpLayoutManager.Windows
             public LayoutForBinding()
             {
             }
+        }
+
+        private void ChkMakeCopy_OnChecked(object sender, RoutedEventArgs e)
+        {
+            PanelCopyCount.Visibility = Visibility.Visible;
+        }
+
+        private void ChkMakeCopy_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            PanelCopyCount.Visibility = Visibility.Collapsed;
         }
     }
 }

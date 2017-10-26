@@ -233,9 +233,9 @@ namespace mpLayoutManager
             GetCurrentDocLayouts();
         }
 
-        private string GetCopyLayoutName(LayoutForBinding selectedLayout)
+        private string GetCopyLayoutName(LayoutForBinding selectedLayout, int copyCount)
         {
-            int num = 1 + _currentDocLayouts.Count(currentDocLayout => currentDocLayout.LayoutName.Contains(selectedLayout.LayoutName));
+            int num = 1 + _currentDocLayouts.Count(currentDocLayout => currentDocLayout.LayoutName.Contains(selectedLayout.LayoutName)) + copyCount;
             return string.Concat(selectedLayout.LayoutName, " (", num, ")");
         }
 
@@ -647,7 +647,6 @@ namespace mpLayoutManager
 
         private void MiMoveCopy_OnClick(object sender, RoutedEventArgs e)
         {
-            bool value;
             try
             {
                 Document mdiActiveDocument = AcApp.DocumentManager.MdiActiveDocument;
@@ -670,6 +669,7 @@ namespace mpLayoutManager
                             if ((isChecked.GetValueOrDefault() && isChecked.HasValue))
                             {
                                 isChecked = moveCopyLayout.ChkMakeCopy.IsChecked;
+                                bool value;
                                 if (!isChecked.HasValue)
                                 {
                                     value = false;
@@ -709,16 +709,18 @@ namespace mpLayoutManager
                                     {
                                         for (int j = selectedItems.Count - 1; j >= 0; j--)
                                         {
-                                            LayoutForBinding item1 = selectedItems[j] as LayoutForBinding;
-                                            if (item1 != null)
-                                            {
-                                                if (num1 == 1)
+                                            for (int i = 0; i < moveCopyLayout.NuCopyCount.Value; i++) { 
+                                                LayoutForBinding selectedLayout = selectedItems[j] as LayoutForBinding;
+                                                if (selectedLayout != null)
                                                 {
-                                                    current.CloneLayout(item1.LayoutName, GetCopyLayoutName(item1), 1);
-                                                }
-                                                else
-                                                {
-                                                    current.CloneLayout(item1.LayoutName, GetCopyLayoutName(item1), num1 - 1);
+                                                    if (num1 == 1)
+                                                    {
+                                                        current.CloneLayout(selectedLayout.LayoutName, GetCopyLayoutName(selectedLayout, i), 1 + i);
+                                                    }
+                                                    else
+                                                    {
+                                                        current.CloneLayout(selectedLayout.LayoutName, GetCopyLayoutName(selectedLayout, i), num1 - 1 + i);
+                                                    }
                                                 }
                                             }
                                         }
@@ -736,7 +738,10 @@ namespace mpLayoutManager
                                     {
                                         foreach (LayoutForBinding layoutForBinding2 in selectedItems)
                                         {
-                                            current.CloneLayout(layoutForBinding2.LayoutName, GetCopyLayoutName(layoutForBinding2), current.LayoutCount);
+                                            for (int i = 0; i < moveCopyLayout.NuCopyCount.Value; i++)
+                                            {
+                                                current.CloneLayout(layoutForBinding2.LayoutName, GetCopyLayoutName(layoutForBinding2, i), current.LayoutCount + i);
+                                            }
                                         }
                                         mdiActiveDocument.Editor.Regen();
                                     }

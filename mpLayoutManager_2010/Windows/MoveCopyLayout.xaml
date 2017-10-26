@@ -11,7 +11,7 @@
                       ShowMinButton="False"
                       ShowTitleBar="False"
                       ResizeMode="CanResizeWithGrip"
-                      MinWidth="300"
+                      MinWidth="387"
                       MinHeight="200"
                       SaveWindowPosition="True"
                       KeyDown="MoveCopyLayout_OnKeyDown">
@@ -59,13 +59,9 @@
                      Margin="2"
                      VerticalAlignment="Bottom">
             </TextBlock>
-            <ListBox Name="LbLayouts"
-                     Grid.Row="2"
-                     Grid.Column="0"
-                     Margin="2"
-                     VerticalAlignment="Stretch"
-                     HorizontalAlignment="Stretch"
-                     BorderThickness="1"
+            <ListBox Name="LbLayouts" Grid.Row="2" Grid.Column="0" 
+                     Margin="2" VerticalAlignment="Stretch"
+                     HorizontalAlignment="Stretch" BorderThickness="1"
                      BorderBrush="{DynamicResource AccentColorBrush}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -73,19 +69,22 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <CheckBox Name="ChkMakeCopy"
-                     Grid.Row="3"
-                     Margin="2"
-                     Grid.Column="0"
-                     Content="Создать копию"/>
-            <Button Name="BtAccept"
-                     Grid.Column="1"
-                     Grid.Row="0"
-                     Margin="2"
-                     HorizontalAlignment="Left"
-                     VerticalAlignment="Center"
-                     MinWidth="75"
-                     Content="Принять"
+            <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
+                <CheckBox Name="ChkMakeCopy" Margin="2,6" 
+                          Checked="ChkMakeCopy_OnChecked"
+                          Unchecked="ChkMakeCopy_OnUnchecked"
+                          Content="Создать копию"/>
+                <StackPanel Orientation="Horizontal" Name="PanelCopyCount">
+                    <TextBlock VerticalAlignment="Center" Margin="5,2,2,2"
+                               Text="Количество копий:"></TextBlock>
+                    <controls:NumericUpDown Value="1" Minimum="1" Name="NuCopyCount"
+                                            VerticalAlignment="Center" Margin="2"></controls:NumericUpDown>
+                </StackPanel>
+            </StackPanel>
+            
+            <Button Name="BtAccept" Grid.Column="1" Grid.Row="0"
+                     Margin="2" HorizontalAlignment="Left"
+                    VerticalAlignment="Center" MinWidth="75" Content="Принять"
                      Click="BtAccept_OnClick"/>
             <Button Name="BtCancel"
                      Grid.Column="1"
