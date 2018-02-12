@@ -8,7 +8,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using ModPlusAPI.Windows;
 using ModPlusAPI.Windows.Helpers;
@@ -18,6 +17,8 @@ namespace mpLayoutManager.Windows
 {
     public partial class MoveCopyLayout
     {
+        private const string LangItem = "mpLayoutManager";
+
         public string SelectedLayoutName;
 
         public int SelectedLayoutTabOrder;
@@ -57,8 +58,7 @@ namespace mpLayoutManager.Windows
         {
             if (LbLayouts.SelectedIndex != -1)
             {
-                var selectedItem = LbLayouts.SelectedItem as LayoutForBinding;
-                if (selectedItem != null)
+                if (LbLayouts.SelectedItem is LayoutForBinding selectedItem)
                 {
                     SelectedLayoutName = selectedItem.LayoutName;
                     SelectedLayoutTabOrder = selectedItem.TabOrder;
@@ -67,7 +67,7 @@ namespace mpLayoutManager.Windows
             }
             else
             {
-                ModPlusAPI.Windows.MessageBox.Show("Нужно выбрать лист в списке!", MessageBoxIcon.Alert);
+                ModPlusAPI.Windows.MessageBox.Show(ModPlusAPI.Language.GetItem(LangItem, "h24"), MessageBoxIcon.Alert);
             }
         }
 
@@ -113,7 +113,7 @@ namespace mpLayoutManager.Windows
                     {
                         new LayoutForBinding
                         {
-                            LayoutName = "(переместить в конец)",
+                            LayoutName = "(" + ModPlusAPI.Language.GetItem(LangItem, "h25") + ")",
                             TabOrder = -1
                         }
                     };

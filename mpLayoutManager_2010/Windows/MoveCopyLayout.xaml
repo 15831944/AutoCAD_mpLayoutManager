@@ -5,16 +5,10 @@
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       x:Class="mpLayoutManager.Windows.MoveCopyLayout"
                       WindowStartupLocation="CenterScreen"
-                      SizeToContent="WidthAndHeight"
-                      Title="Перемещение/копирование"
-                      ShowMaxRestoreButton="False"
-                      ShowMinButton="False"
-                      ShowTitleBar="False"
-                      ResizeMode="CanResizeWithGrip"
-                      MinWidth="387"
-                      MinHeight="200"
-                      SaveWindowPosition="True"
-                      KeyDown="MoveCopyLayout_OnKeyDown">
+                      SizeToContent="WidthAndHeight" ShowMaxRestoreButton="False"
+                      ShowMinButton="False" ShowTitleBar="False" ResizeMode="CanResizeWithGrip"
+                      MinWidth="387" MinHeight="200"
+                      SaveWindowPosition="True" KeyDown="MoveCopyLayout_OnKeyDown">
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -26,6 +20,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/ModPlusAPI;component/Windows/WinResources/Styles.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <XmlDataProvider x:Key="Lang" Source="E:/ModPlus/Languages/en-US.xml" XPath="ModPlus/mpLayoutManager"/>
         </ResourceDictionary>
     </controls:MetroWindow.Resources>
     <Grid Margin="5">
@@ -33,9 +28,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label FontSize="16"
-                 Grid.Row="0"
-                 Content="ПЕРЕМЕЩЕНИЕ/КОПИРОВАНИЕ"/>
+        <TextBlock FontSize="16" Margin="0,0,20,5" Grid.Row="0"
+                   Text="{Binding Source={StaticResource Lang}, XPath=h19}"/>
         <Grid Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -47,17 +41,11 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0"
-                       Text="Поместить выбранные листы"
-                     Grid.Column="0"
-                     Margin="2"
-                     VerticalAlignment="Top">
+            <TextBlock Grid.Row="0" Text="{Binding Source={StaticResource Lang}, XPath=h20}"
+                       Grid.Column="0" Margin="2" VerticalAlignment="Top">
             </TextBlock>
-            <TextBlock Grid.Row="1"
-                       Text="Перед листом:"
-                     Grid.Column="0"
-                     Margin="2"
-                     VerticalAlignment="Bottom">
+            <TextBlock Grid.Row="1" Text="{Binding Source={StaticResource Lang}, XPath=h21}"
+                       Grid.Column="0" Margin="2" VerticalAlignment="Bottom">
             </TextBlock>
             <ListBox Name="LbLayouts" Grid.Row="2" Grid.Column="0" 
                      Margin="2" VerticalAlignment="Stretch"
@@ -73,28 +61,23 @@
                 <CheckBox Name="ChkMakeCopy" Margin="2,6" 
                           Checked="ChkMakeCopy_OnChecked"
                           Unchecked="ChkMakeCopy_OnUnchecked"
-                          Content="Создать копию"/>
+                          Content="{Binding Source={StaticResource Lang}, XPath=h22}"/>
                 <StackPanel Orientation="Horizontal" Name="PanelCopyCount">
                     <TextBlock VerticalAlignment="Center" Margin="5,2,2,2"
-                               Text="Количество копий:"></TextBlock>
+                               Text="{Binding Source={StaticResource Lang}, XPath=h23}"></TextBlock>
                     <controls:NumericUpDown Value="1" Minimum="1" Name="NuCopyCount"
                                             VerticalAlignment="Center" Margin="2"></controls:NumericUpDown>
                 </StackPanel>
             </StackPanel>
             
             <Button Name="BtAccept" Grid.Column="1" Grid.Row="0"
-                     Margin="2" HorizontalAlignment="Left"
-                    VerticalAlignment="Center" MinWidth="75" Content="Принять"
-                     Click="BtAccept_OnClick"/>
-            <Button Name="BtCancel"
-                     Grid.Column="1"
-                     Grid.Row="1"
-                     Margin="2"
-                     HorizontalAlignment="Right"
-                     VerticalAlignment="Center"
-                     MinWidth="75"
-                     Content="Отмена"
-                     Click="BtCancel_OnClick"/>
+                    Margin="2" HorizontalAlignment="Left"
+                    VerticalAlignment="Center" MinWidth="75" Content="{Binding Source={StaticResource Lang}, XPath=accept}"
+                    Click="BtAccept_OnClick"/>
+            <Button Name="BtCancel" Grid.Column="1" Grid.Row="1"
+                    Margin="2" HorizontalAlignment="Right" VerticalAlignment="Center"
+                    MinWidth="75" Content="{Binding Source={StaticResource Lang}, XPath=cancel}"
+                    Click="BtCancel_OnClick"/>
         </Grid>
     </Grid>
 </controls:MetroWindow>

@@ -18,6 +18,8 @@ namespace mpLayoutManager
 {
     public class FunctionStart : IExtensionApplication
     {
+        private const string LangItem = "mpLayoutManager";
+
         private static PaletteSet _paletteSet;
 
         private void _paletteSet_Load(object sender, PalettePersistEventArgs e)
@@ -38,7 +40,7 @@ namespace mpLayoutManager
                 bool flag = false;
                 foreach (Palette palette in mpPaletteSet)
                 {
-                    if (palette.Name.Equals("Менеджер листов"))
+                    if (palette.Name.Equals(Language.GetItem(LangItem, "h8")))
                     {
                         flag = true;
                     }
@@ -46,7 +48,7 @@ namespace mpLayoutManager
                 if (!flag)
                 {
                     LmPalette lmPalette = new LmPalette();
-                    mpPaletteSet.Add("Менеджер листов", new ElementHost
+                    mpPaletteSet.Add(Language.GetItem(LangItem, "h8"), new ElementHost
                     {
                         AutoSize = true,
                         Dock = DockStyle.Fill,
@@ -99,7 +101,7 @@ namespace mpLayoutManager
                 int num = 0;
                 while (num < mpPaletteSet.Count)
                 {
-                    if (!mpPaletteSet[num].Name.Equals("Менеджер листов"))
+                    if (!mpPaletteSet[num].Name.Equals(Language.GetItem(LangItem, "h8")))
                     {
                         num++;
                     }
@@ -138,7 +140,7 @@ namespace mpLayoutManager
                     }
                     else
                     {
-                        _paletteSet = new PaletteSet("MP: Менеджер листов", "mpLayoutManager", new Guid("CC48331E-B912-44DF-B592-D5EF66D7673E"));
+                        _paletteSet = new PaletteSet("MP:" + Language.GetItem(LangItem, "h8"), "mpLayoutManager", new Guid("CC48331E-B912-44DF-B592-D5EF66D7673E"));
                         _paletteSet.Load += _paletteSet_Load;
                         _paletteSet.Save += _paletteSet_Save;
                         LmPalette lmPalette = new LmPalette();
@@ -148,7 +150,7 @@ namespace mpLayoutManager
                             Dock = DockStyle.Fill,
                             Child = lmPalette
                         };
-                        _paletteSet.Add("MP: Менеджер листов", elementHost);
+                        _paletteSet.Add("MP:"+ Language.GetItem(LangItem, "h8"), elementHost);
                         _paletteSet.Style = PaletteSetStyles.ShowCloseButton | PaletteSetStyles.ShowPropertiesMenu | PaletteSetStyles.ShowAutoHideButton;
                         _paletteSet.MinimumSize = new Size(100, 300);
                         _paletteSet.DockEnabled = DockSides.Right | DockSides.Left;

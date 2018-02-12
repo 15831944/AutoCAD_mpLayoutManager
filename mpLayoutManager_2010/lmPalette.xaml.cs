@@ -21,6 +21,7 @@ namespace mpLayoutManager
 {
     public partial class LmPalette
     {
+        private const string LangItem = "mpLayoutManager";
 
         private ListViewDragDropManager<LayoutForBinding> _dragMgr;
 
@@ -104,9 +105,9 @@ namespace mpLayoutManager
             {
                 LvLayouts.ItemsSource = null;
                 string currentLayoutName = GetCurrentLayoutName();
-                foreach (LayoutForBinding _currentDocLayout in _currentDocLayouts)
+                foreach (LayoutForBinding currentDocLayout in _currentDocLayouts)
                 {
-                    _currentDocLayout.TabSelected = _currentDocLayout.LayoutName.Equals(currentLayoutName);
+                    currentDocLayout.TabSelected = currentDocLayout.LayoutName.Equals(currentLayoutName);
                 }
                 LvLayouts.ItemsSource = _currentDocLayouts;
             }
@@ -118,21 +119,18 @@ namespace mpLayoutManager
 
         private void BtAddLayuot_OnClick(object sender, RoutedEventArgs e)
         {
-            bool flag;
-            Database database;
-            string layoutName;
-            string str;
             try
             {
                 Document mdiActiveDocument = AcApp.DocumentManager.MdiActiveDocument;
-                database = mdiActiveDocument != null ? mdiActiveDocument.Database : null;
+                var database = mdiActiveDocument != null ? mdiActiveDocument.Database : null;
                 if (database != null)
                 {
+                    bool flag;
                     bool flag1 = !bool.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpLayoutManager", "AskLayoutName"), out flag) | flag;
                     LayoutManager current = LayoutManager.Current;
                     if (!flag1)
                     {
-                        string str1 = string.Concat("Лист", GetNewLayoutNumber(current));
+                        string str1 = string.Concat(ModPlusAPI.Language.GetItem(LangItem, "h3"), GetNewLayoutNumber(current));
                         using (mdiActiveDocument.LockDocument())
                         {
                             using (Transaction transaction = mdiActiveDocument.TransactionManager.StartTransaction())
@@ -146,6 +144,7 @@ namespace mpLayoutManager
                                         obj.Initialize();
                                     }
                                     LayoutManager layoutManager = current;
+                                    string layoutName;
                                     if (obj != null)
                                     {
                                         layoutName = obj.LayoutName;
@@ -166,14 +165,18 @@ namespace mpLayoutManager
                     }
                     else
                     {
-                        LayoutNewName layoutNewName = new LayoutNewName()
+                        LayoutNewName layoutNewName = new LayoutNewName
                         {
                             LayoutsNames = (
                                 from layout in _currentDocLayouts
-                                select layout.LayoutName).ToList()
+                                select layout.LayoutName).ToList(),
+                            TbNewName =
+                            {
+                                Text = string.Concat(ModPlusAPI.Language.GetItem(LangItem, "h3"),
+                                    GetNewLayoutNumber(current))
+                            },
+                            Topmost = true
                         };
-                        layoutNewName.TbNewName.Text = string.Concat("Лист", GetNewLayoutNumber(current));
-                        layoutNewName.Topmost = true;
                         LayoutNewName layoutNewName1 = layoutNewName;
                         bool? nullable = layoutNewName1.ShowDialog();
                         if ((nullable.GetValueOrDefault() && nullable.HasValue))
@@ -191,14 +194,7 @@ namespace mpLayoutManager
                                             obj1.Initialize();
                                         }
                                         LayoutManager layoutManager1 = current;
-                                        if (obj1 != null)
-                                        {
-                                            str = obj1.LayoutName;
-                                        }
-                                        else
-                                        {
-                                            str = null;
-                                        }
+                                        var str = obj1 != null ? obj1.LayoutName : null;
                                         layoutManager1.CurrentLayout = str;
                                         database.TileMode = false;
                                         mdiActiveDocument.Editor.SwitchToPaperSpace();
@@ -241,10 +237,10 @@ namespace mpLayoutManager
 
         private void GetCurrentDocLayouts()
         {
-            Database database;
             try
             {
                 Document mdiActiveDocument = AcApp.DocumentManager.MdiActiveDocument;
+                Database database;
                 if (mdiActiveDocument != null)
                 {
                     database = mdiActiveDocument.Database;
@@ -341,15 +337,13 @@ namespace mpLayoutManager
         {
             try
             {
-                ContextMenu contextMenu = sender as ContextMenu;
-                if (contextMenu != null)
+                if (sender is ContextMenu contextMenu)
                 {
                     ListViewItem placementTarget = contextMenu.PlacementTarget as ListViewItem;
                     LayoutManager current = LayoutManager.Current;
                     foreach (object item in contextMenu.Items)
                     {
-                        MenuItem menuItem = item as MenuItem;
-                        if (menuItem != null)
+                        if (item is MenuItem menuItem)
                         {
                             if (LvLayouts.SelectedItems.Count > 1)
                             {
@@ -373,8 +367,7 @@ namespace mpLayoutManager
                             }
                             else
                             {
-                                var layoutForBinding = LvLayouts.SelectedItem as LayoutForBinding;
-                                if (layoutForBinding != null && LvLayouts.SelectedItems.Count == 1 &
+                                if (LvLayouts.SelectedItem is LayoutForBinding layoutForBinding && LvLayouts.SelectedItems.Count == 1 &
                                     layoutForBinding.ModelType)
                                 {
                                     if (!(menuItem.Name.Equals("MiOpen") | menuItem.Name.Equals("MiSelectAll")))
@@ -491,7 +484,7 @@ namespace mpLayoutManager
             {
                 _showModel = lmSetting.ChkShowModel.IsChecked.Value;
             }
-            if ((!lmSetting.ChkAddToMpPalette.IsChecked.HasValue ? true : !lmSetting.ChkAddToMpPalette.IsChecked.Value))
+            if (!lmSetting.ChkAddToMpPalette.IsChecked ?? true)
             {
                 FunctionStart.RemoveFromMpPalette(true);
             }
@@ -510,10 +503,10 @@ namespace mpLayoutManager
 
         private void LvLayouts_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListView lvLayouts;
             if (e != null & LvLayouts != null)
             {
                 ListViewDragDropManager<LayoutForBinding> listViewDragDropManager = _dragMgr;
+                ListView lvLayouts;
                 if (e.AddedItems.Count > 1)
                 {
                     lvLayouts = null;
@@ -533,9 +526,8 @@ namespace mpLayoutManager
                 Document mdiActiveDocument = AcApp.DocumentManager.MdiActiveDocument;
                 if (LvLayouts.SelectedItems.Count == 1)
                 {
-                    LayoutForBinding selectedItem = LvLayouts.SelectedItem as LayoutForBinding;
-                    if (selectedItem != null && 
-                        ModPlusAPI.Windows.MessageBox.ShowYesNo(string.Concat("Вы уверены, что хотите удалить лист",
+                    if (LvLayouts.SelectedItem is LayoutForBinding selectedItem && 
+                        ModPlusAPI.Windows.MessageBox.ShowYesNo(string.Concat(ModPlusAPI.Language.GetItem(LangItem, "h4"),
                         Environment.NewLine, selectedItem.LayoutName, "?"), MessageBoxIcon.Question))
                     {
                         using (mdiActiveDocument.LockDocument())
@@ -549,7 +541,7 @@ namespace mpLayoutManager
                 }
                 else if (LvLayouts.SelectedItems.Count > 1)
                 {
-                    if (ModPlusAPI.Windows.MessageBox.ShowYesNo("Вы уверены, что хотите удалить выбранные листы?", MessageBoxIcon.Question))
+                    if (ModPlusAPI.Windows.MessageBox.ShowYesNo(ModPlusAPI.Language.GetItem(LangItem, "h5"), MessageBoxIcon.Question))
                     {
                         List<LayoutForBinding> list = (
                             from selectedLayout in LvLayouts.SelectedItems.OfType<LayoutForBinding>()
@@ -589,20 +581,19 @@ namespace mpLayoutManager
                 Document mdiActiveDocument = AcApp.DocumentManager.MdiActiveDocument;
                 if (LvLayouts.SelectedItems.Count <= 1)
                 {
-                    LayoutForBinding selectedItem = LvLayouts.SelectedItem as LayoutForBinding;
-                    if (selectedItem != null)
+                    if (LvLayouts.SelectedItem is LayoutForBinding selectedItem)
                     {
                         if (!selectedItem.ModelType)
                         {
-                            RenameLayout renameLayout = new RenameLayout()
+                            RenameLayout renameLayout = new RenameLayout
                             {
                                 LayoutsNames = (
                                     from layout in _currentDocLayouts
-                                    select layout.LayoutName).ToList()
+                                    select layout.LayoutName).ToList(),
+                                TbCurrentName = {Text = selectedItem.LayoutName},
+                                TbNewName = {Text = selectedItem.LayoutName},
+                                Topmost = true
                             };
-                            renameLayout.TbCurrentName.Text = selectedItem.LayoutName;
-                            renameLayout.TbNewName.Text = selectedItem.LayoutName;
-                            renameLayout.Topmost = true;
                             RenameLayout renameLayout1 = renameLayout;
                             bool? nullable = renameLayout1.ShowDialog();
                             if ((nullable.GetValueOrDefault() && nullable.HasValue))
@@ -625,13 +616,13 @@ namespace mpLayoutManager
                         }
                         else
                         {
-                            ModPlusAPI.Windows.MessageBox.Show("Нельзя переименовать вкладку \"Модель\"");
+                            ModPlusAPI.Windows.MessageBox.Show(ModPlusAPI.Language.GetItem(LangItem, "h6"));
                         }
                     }
                 }
                 else
                 {
-                    ModPlusAPI.Windows.MessageBox.Show("Выберите, пожалуйста, один лист");
+                    ModPlusAPI.Windows.MessageBox.Show(ModPlusAPI.Language.GetItem(LangItem, "h7"));
                 }
             }
             catch (Exception exception)
@@ -709,9 +700,8 @@ namespace mpLayoutManager
                                     {
                                         for (int j = selectedItems.Count - 1; j >= 0; j--)
                                         {
-                                            for (int i = 0; i < moveCopyLayout.NuCopyCount.Value; i++) { 
-                                                LayoutForBinding selectedLayout = selectedItems[j] as LayoutForBinding;
-                                                if (selectedLayout != null)
+                                            for (int i = 0; i < moveCopyLayout.NuCopyCount.Value; i++) {
+                                                if (selectedItems[j] is LayoutForBinding selectedLayout)
                                                 {
                                                     if (num1 == 1)
                                                     {
@@ -808,8 +798,7 @@ namespace mpLayoutManager
                     {
                         current.LayoutSwitched -= Lm_LayoutSwitched;
                         LvLayouts.SelectionChanged -= LvLayouts_OnSelectionChanged;
-                        LayoutForBinding selectedItem = LvLayouts.SelectedItem as LayoutForBinding;
-                        if (selectedItem != null)
+                        if (LvLayouts.SelectedItem is LayoutForBinding selectedItem)
                         {
                             using (mdiActiveDocument.LockDocument())
                             {
@@ -821,7 +810,7 @@ namespace mpLayoutManager
                     }
                     else
                     {
-                        ModPlusAPI.Windows.MessageBox.Show("Выберите, пожалуйста, один лист");
+                        ModPlusAPI.Windows.MessageBox.Show(ModPlusAPI.Language.GetItem(LangItem, "h7"));
                     }
                 }
                 catch (Exception exception)

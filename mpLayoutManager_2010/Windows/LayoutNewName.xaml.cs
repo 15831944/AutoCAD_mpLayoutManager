@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using ModPlusAPI.Windows.Helpers;
@@ -9,6 +8,8 @@ namespace mpLayoutManager.Windows
 {
     public partial class LayoutNewName
     {
+        private const string LangItem = "mpLayoutManager";
+
         public List<string> LayoutsNames;
 
         public LayoutNewName()
@@ -49,7 +50,7 @@ namespace mpLayoutManager.Windows
         {
             if (string.IsNullOrEmpty(TbNewName.Text))
             {
-                mpWin.MessageBox.Show("Укажите имя листа", mpWin.MessageBoxIcon.Alert);
+                mpWin.MessageBox.Show(ModPlusAPI.Language.GetItem(LangItem, "h11"), mpWin.MessageBoxIcon.Alert);
                 TbNewName.Focus();
             }
             else if (!LayoutsNames.Contains(TbNewName.Text))
@@ -58,8 +59,7 @@ namespace mpLayoutManager.Windows
             }
             else
             {
-                mpWin.MessageBox.Show(string.Concat("В текущем чертеже уже присутствует лист с таким именем!",
-                    Environment.NewLine, "Укажите другое имя"), mpWin.MessageBoxIcon.Alert);
+                mpWin.MessageBox.Show(ModPlusAPI.Language.GetItem(LangItem, "h12"), mpWin.MessageBoxIcon.Alert);
                 TbNewName.Focus();
             }
         }

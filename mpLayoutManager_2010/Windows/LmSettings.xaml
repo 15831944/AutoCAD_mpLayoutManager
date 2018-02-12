@@ -5,7 +5,6 @@
                       WindowStartupLocation="CenterScreen"
                       MinWidth="350"
                       SizeToContent="WidthAndHeight"
-                      Title="Менеджер листов: настройки"
                       ShowMaxRestoreButton="False"
                       ShowMinButton="False"
                       ShowTitleBar="False"
@@ -21,6 +20,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/ModPlusAPI;component/Windows/WinResources/Styles.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <XmlDataProvider x:Key="Lang" Source="E:/ModPlus/Languages/en-US.xml" XPath="ModPlus/mpLayoutManager"/>
         </ResourceDictionary>
     </controls:MetroWindow.Resources>
     <Grid Margin="5">
@@ -28,9 +28,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Label FontSize="16"
-                 Grid.Row="0"
-                 Content="МЕНЕДЖЕР ЛИСТОВ: НАСТРОЙКИ"/>
+        <TextBlock FontSize="16" Grid.Row="0" Text="{Binding Source={StaticResource Lang}, XPath=h13}"
+                   Margin="0,0,20,5"/>
         <Grid Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -40,46 +39,29 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <CheckBox Name="ChkAutoLoad"
-                     Grid.Row="0"
-                     VerticalAlignment="Center"
-                     Margin="2"
-                     Content="Автозапуск вместе с AutoCad"
-                     Checked="ChkAutoLoad_OnChecked_OnUnchecked"
-                     Unchecked="ChkAutoLoad_OnChecked_OnUnchecked"/>
-            <CheckBox Name="ChkAddToMpPalette"
-                     Grid.Row="1"
-                     VerticalAlignment="Center"
-                     Margin="2"
-                     Content="Подключаться к палитре ModPlus"
-                     Checked="ChkAddToMpPalette_OnChecked_OnUnchecked"
-                     Unchecked="ChkAddToMpPalette_OnChecked_OnUnchecked"/>
-            <CheckBox Name="ChkAskLayoutName"
-                     Grid.Row="2"
-                     VerticalAlignment="Center"
-                     Margin="2"
-                     Content="Запрос имени при создании листа"
-                     Checked="ChkAskLayoutName_OnChecked_OnUnchecked"
-                     Unchecked="ChkAskLayoutName_OnChecked_OnUnchecked"/>
-            <CheckBox Name="ChkOpenNewLayout"
-                     Grid.Row="3"
-                     VerticalAlignment="Center"
-                     Margin="2"
-                     Content="Переход на новый лист при создании"
-                     Checked="ChkOpenNewLayout_OnChecked_OnUnchecked"
-                     Unchecked="ChkOpenNewLayout_OnChecked_OnUnchecked"/>
-            <CheckBox Name="ChkShowModel"
-                     Grid.Row="4"
-                     VerticalAlignment="Center"
-                     Margin="2"
-                     Content="Отображать в списке Модель"
-                     Checked="ChkShowModel_OnChecked_OnUnchecked"
-                     Unchecked="ChkShowModel_OnChecked_OnUnchecked"/>
-            <Button Name="BtClose"
-                     Grid.Row="5"
-                     HorizontalAlignment="Center"
-                     Content="Закрыть"
-                     Click="BtClose_OnClick"/>
+            <CheckBox Name="ChkAutoLoad" Grid.Row="0" VerticalAlignment="Center"
+                      Margin="2" Content="{Binding Source={StaticResource Lang}, XPath=h14}"
+                      Checked="ChkAutoLoad_OnChecked_OnUnchecked"
+                      Unchecked="ChkAutoLoad_OnChecked_OnUnchecked"/>
+            <CheckBox Name="ChkAddToMpPalette" Grid.Row="1" VerticalAlignment="Center"
+                      Margin="2" Content="{Binding Source={StaticResource Lang}, XPath=h15}"
+                      Checked="ChkAddToMpPalette_OnChecked_OnUnchecked"
+                      Unchecked="ChkAddToMpPalette_OnChecked_OnUnchecked"/>
+            <CheckBox Name="ChkAskLayoutName" Grid.Row="2" VerticalAlignment="Center"
+                      Margin="2" Content="{Binding Source={StaticResource Lang}, XPath=h16}"
+                      Checked="ChkAskLayoutName_OnChecked_OnUnchecked"
+                      Unchecked="ChkAskLayoutName_OnChecked_OnUnchecked"/>
+            <CheckBox Name="ChkOpenNewLayout" Grid.Row="3" VerticalAlignment="Center"
+                      Margin="2" Content="{Binding Source={StaticResource Lang}, XPath=h17}"
+                      Checked="ChkOpenNewLayout_OnChecked_OnUnchecked"
+                      Unchecked="ChkOpenNewLayout_OnChecked_OnUnchecked"/>
+            <CheckBox Name="ChkShowModel" Grid.Row="4" VerticalAlignment="Center"
+                      Margin="2" Content="{Binding Source={StaticResource Lang}, XPath=h18}"
+                      Checked="ChkShowModel_OnChecked_OnUnchecked"
+                      Unchecked="ChkShowModel_OnChecked_OnUnchecked"/>
+            <Button Name="BtClose" Grid.Row="5"
+                    HorizontalAlignment="Center"
+                    Content="{Binding Source={StaticResource Lang}, XPath=close}" Click="BtClose_OnClick"/>
         </Grid>
     </Grid>
 </controls:MetroWindow>

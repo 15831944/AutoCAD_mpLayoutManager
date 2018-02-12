@@ -3,13 +3,9 @@
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       x:Class="mpLayoutManager.Windows.RenameLayout"
                       WindowStartupLocation="CenterScreen"
-                      ResizeMode="NoResize"
-                      SizeToContent="WidthAndHeight"
-                      Title="Переименовать лист"
-                      ShowMaxRestoreButton="False"
-                      ShowMinButton="False"
-                      ShowTitleBar="False"
-                      SaveWindowPosition="True"
+                      ResizeMode="NoResize" SizeToContent="WidthAndHeight"
+                      ShowMaxRestoreButton="False" ShowMinButton="False"
+                      ShowTitleBar="False" SaveWindowPosition="True"
                       KeyDown="RenameLayout_OnKeyDown">
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
@@ -20,8 +16,9 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ModPlusAPI;component/Windows/WinResources/Styles.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/ModPlusAPI;component/Windows/WinResources/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <XmlDataProvider x:Key="Lang" Source="E:/ModPlus/Languages/en-US.xml" XPath="ModPlus/mpLayoutManager"/>
         </ResourceDictionary>
     </controls:MetroWindow.Resources>
     <Grid Margin="5">
@@ -29,9 +26,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Label FontSize="16"
-                 Grid.Row="0"
-                 Content="ПЕРЕИМЕНОВАТЬ ЛИСТ"/>
+        <TextBlock FontSize="16" Grid.Row="0" Margin="0,0,20,5"
+                   Text="{Binding Source={StaticResource Lang}, XPath=h26}"/>
         <Grid Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -44,48 +40,25 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0"
-                     Margin="2"
-                     Text="Текущее название листа:"
-                     Grid.Column="0"
-                     Grid.ColumnSpan="2"/>
-            <TextBox Name="TbCurrentName"
-                     Grid.Row="1"
-                     MinWidth="250"
-                     Margin="2"
-                     IsReadOnly="True"
-                     MaxWidth="400"
-                     TextWrapping="Wrap"
-                     Grid.Column="0"
-                     Grid.ColumnSpan="2"/>
-            <TextBlock Grid.Row="2"
-                     Margin="2"
-                     Text="Новое название листа:"
-                     Grid.Column="0"
-                     Grid.ColumnSpan="2"/>
-            <TextBox Name="TbNewName"
-                     Grid.Row="3"
-                     MinWidth="250"
-                     Margin="2"
-                     MaxWidth="400"
-                     TextWrapping="Wrap"
+            <TextBlock Grid.Row="0" Margin="2"
+                       Text="{Binding Source={StaticResource Lang}, XPath=h27}"
+                       Grid.Column="0" Grid.ColumnSpan="2"/>
+            <TextBox Name="TbCurrentName" Grid.Row="1" MinWidth="250" Margin="2"
+                     IsReadOnly="True" MaxWidth="400" TextWrapping="Wrap"
+                     Grid.Column="0" Grid.ColumnSpan="2"/>
+            <TextBlock Grid.Row="2" Margin="2"
+                       Text="{Binding Source={StaticResource Lang}, XPath=h28}"
+                       Grid.Column="0" Grid.ColumnSpan="2"/>
+            <TextBox Name="TbNewName" Grid.Row="3" MinWidth="250"
+                     Margin="2" MaxWidth="400" TextWrapping="Wrap"
                      controls:TextBoxHelper.ClearTextButton="True"
-                     Grid.Column="0"
-                     Grid.ColumnSpan="2"/>
-            <Button Name="BtAccept"
-                     Grid.Column="0"
-                     Grid.Row="4"
-                     Margin="2"
-                     HorizontalAlignment="Left"
-                     Content="Принять"
-                     Click="BtAccept_OnClick"/>
-            <Button Name="BtCancel"
-                     Grid.Column="1"
-                     Grid.Row="4"
-                     Margin="2"
-                     HorizontalAlignment="Right"
-                     Content="Отмена"
-                     Click="BtCancel_OnClick"/>
+                     Grid.Column="0" Grid.ColumnSpan="2"/>
+            <Button Name="BtAccept" Grid.Column="0" Grid.Row="4"
+                    Margin="2" HorizontalAlignment="Left"
+                    Content="{Binding Source={StaticResource Lang}, XPath=accept}" Click="BtAccept_OnClick"/>
+            <Button Name="BtCancel" Grid.Column="1" Grid.Row="4"
+                    Margin="2" HorizontalAlignment="Right"
+                    Content="{Binding Source={StaticResource Lang}, XPath=cancel}" Click="BtCancel_OnClick"/>
         </Grid>
     </Grid>
 </controls:MetroWindow>

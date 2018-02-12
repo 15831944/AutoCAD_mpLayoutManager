@@ -98,7 +98,7 @@ namespace mpLayoutManager
                             Point mousePosition = MouseUtilities.GetMousePosition(listView);
                             flag = !rect.Contains(mousePosition);
                         }
-                        catch (Exception exception)
+                        catch 
                         {
                             flag = false;
                         }
@@ -140,14 +140,8 @@ namespace mpLayoutManager
 
         public bool IsDragInProgress
         {
-            get
-            {
-                return isDragInProgress;
-            }
-            private set
-            {
-                isDragInProgress = value;
-            }
+            get => isDragInProgress;
+            private set => isDragInProgress = value;
         }
 
         private bool IsMouseOverScrollbar
@@ -184,10 +178,7 @@ namespace mpLayoutManager
 
         private ItemType ItemUnderDragCursor
         {
-            get
-            {
-                return itemUnderDragCursor;
-            }
+            get => itemUnderDragCursor;
             set
             {
                 if ((object)itemUnderDragCursor != (object)value)
@@ -265,13 +256,7 @@ namespace mpLayoutManager
             }
         }
 
-        private bool ShowDragAdornerResolved
-        {
-            get
-            {
-                return (!ShowDragAdorner ? false : DragAdornerOpacity > 0);
-            }
-        }
+        private bool ShowDragAdornerResolved => ShowDragAdorner && DragAdornerOpacity > 0;
 
         public ListViewDragDropManager()
         {

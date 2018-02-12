@@ -9,8 +9,9 @@ namespace mpLayoutManager.Windows
 {
     public partial class RenameLayout 
     {
-        public List<string> LayoutsNames;
+        private const string LangItem = "mpLayoutManager";
 
+        public List<string> LayoutsNames;
 
         public RenameLayout()
         {
@@ -33,7 +34,7 @@ namespace mpLayoutManager.Windows
         {
             if (string.IsNullOrEmpty(TbNewName.Text))
             {
-                ModPlusAPI.Windows.MessageBox.Show("Укажите имя листа", MessageBoxIcon.Alert);
+                ModPlusAPI.Windows.MessageBox.Show(ModPlusAPI.Language.GetItem(LangItem, "h11"), MessageBoxIcon.Alert);
                 TbNewName.Focus();
             }
             else if (!LayoutsNames.Contains(TbNewName.Text))
@@ -42,8 +43,7 @@ namespace mpLayoutManager.Windows
             }
             else
             {
-                ModPlusAPI.Windows.MessageBox.Show(string.Concat("В текущем чертеже уже присутствует лист с таким именем!", 
-                    Environment.NewLine, "Укажите другое имя"), MessageBoxIcon.Alert);
+                ModPlusAPI.Windows.MessageBox.Show(ModPlusAPI.Language.GetItem(LangItem, "h12"), MessageBoxIcon.Alert);
                 TbNewName.Focus();
             }
         }
