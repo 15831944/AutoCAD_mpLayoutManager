@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Input;
 using ModPlusAPI;
-using ModPlusAPI.Windows.Helpers;
 
 namespace mpLayoutManager.Windows
 {
@@ -14,7 +13,7 @@ namespace mpLayoutManager.Windows
         public LmSettings()
         {
             InitializeComponent();
-            this.OnWindowStartUp();
+            Title = ModPlusAPI.Language.GetItem("mpLayoutManager", "h13");
             Loaded += LmSettings_Loaded;
         }
 

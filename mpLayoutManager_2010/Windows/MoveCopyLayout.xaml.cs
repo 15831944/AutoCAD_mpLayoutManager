@@ -10,7 +10,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using ModPlusAPI.Windows;
-using ModPlusAPI.Windows.Helpers;
 using Visibility = System.Windows.Visibility;
 
 namespace mpLayoutManager.Windows
@@ -27,7 +26,7 @@ namespace mpLayoutManager.Windows
         public MoveCopyLayout()
         {
             InitializeComponent();
-            this.OnWindowStartUp();
+            Title = ModPlusAPI.Language.GetItem(LangItem, "h19");
             Loaded += MoveCopyLayout_Loaded;
         }
 

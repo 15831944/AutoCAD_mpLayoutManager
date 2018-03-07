@@ -1,83 +1,66 @@
-﻿<controls:MetroWindow xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<mpc:BaseMetroWindow xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:mpc="clr-namespace:ModPlusAPI.Windows.Mpc;assembly=ModPlusAPI"
                       x:Class="mpLayoutManager.Windows.MoveCopyLayout"
-                      WindowStartupLocation="CenterScreen"
-                      SizeToContent="WidthAndHeight" ShowMaxRestoreButton="False"
-                      ShowMinButton="False" ShowTitleBar="False" ResizeMode="CanResizeWithGrip"
-                      MinWidth="387" MinHeight="200"
-                      SaveWindowPosition="True" KeyDown="MoveCopyLayout_OnKeyDown">
-    <controls:MetroWindow.Resources>
+                      SizeToContent="WidthAndHeight" ResizeMode="CanResizeWithGrip"
+                      MinWidth="387" MinHeight="200" ShowCloseButton="False"
+                      KeyDown="MoveCopyLayout_OnKeyDown">
+    <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ModPlusAPI;component/Windows/WinResources/Styles.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/ModPlusAPI;component/Windows/WinResources/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <XmlDataProvider x:Key="Lang" Source="E:/ModPlus/Languages/en-US.xml" XPath="ModPlus/mpLayoutManager"/>
         </ResourceDictionary>
-    </controls:MetroWindow.Resources>
-    <Grid Margin="5">
+    </Window.Resources>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Name="GrowForListBox" Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock FontSize="16" Margin="0,0,20,5" Grid.Row="0"
-                   Text="{Binding Source={StaticResource Lang}, XPath=h19}"/>
-        <Grid Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Name="GrowForListBox" Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Text="{Binding Source={StaticResource Lang}, XPath=h20}"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Text="{Binding Source={StaticResource Lang}, XPath=h20}"
                        Grid.Column="0" Margin="2" VerticalAlignment="Top">
-            </TextBlock>
-            <TextBlock Grid.Row="1" Text="{Binding Source={StaticResource Lang}, XPath=h21}"
+        </TextBlock>
+        <TextBlock Grid.Row="1" Text="{Binding Source={StaticResource Lang}, XPath=h21}"
                        Grid.Column="0" Margin="2" VerticalAlignment="Bottom">
-            </TextBlock>
-            <ListBox Name="LbLayouts" Grid.Row="2" Grid.Column="0" 
+        </TextBlock>
+        <ListBox Name="LbLayouts" Grid.Row="2" Grid.Column="0" 
                      Margin="2" VerticalAlignment="Stretch"
                      HorizontalAlignment="Stretch" BorderThickness="1"
                      BorderBrush="{DynamicResource AccentColorBrush}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Path=LayoutName}"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
-                <CheckBox Name="ChkMakeCopy" Margin="2,6" 
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=LayoutName}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
+            <CheckBox Name="ChkMakeCopy" Margin="2,6" 
                           Checked="ChkMakeCopy_OnChecked"
                           Unchecked="ChkMakeCopy_OnUnchecked"
                           Content="{Binding Source={StaticResource Lang}, XPath=h22}"/>
-                <StackPanel Orientation="Horizontal" Name="PanelCopyCount">
-                    <TextBlock VerticalAlignment="Center" Margin="5,2,2,2"
+            <StackPanel Orientation="Horizontal" Name="PanelCopyCount">
+                <TextBlock VerticalAlignment="Center" Margin="5,2,2,2"
                                Text="{Binding Source={StaticResource Lang}, XPath=h23}"></TextBlock>
-                    <controls:NumericUpDown Value="1" Minimum="1" Name="NuCopyCount"
-                                            VerticalAlignment="Center" Margin="2"></controls:NumericUpDown>
-                </StackPanel>
+                <mah:NumericUpDown Value="1" Minimum="1" Name="NuCopyCount"
+                                            VerticalAlignment="Center" Margin="2"></mah:NumericUpDown>
             </StackPanel>
-            
-            <Button Name="BtAccept" Grid.Column="1" Grid.Row="0"
+        </StackPanel>
+
+        <Button Name="BtAccept" Grid.Column="1" Grid.Row="0"
                     Margin="2" HorizontalAlignment="Left"
                     VerticalAlignment="Center" MinWidth="75" Content="{Binding Source={StaticResource Lang}, XPath=accept}"
                     Click="BtAccept_OnClick"/>
-            <Button Name="BtCancel" Grid.Column="1" Grid.Row="1"
+        <Button Name="BtCancel" Grid.Column="1" Grid.Row="1"
                     Margin="2" HorizontalAlignment="Right" VerticalAlignment="Center"
                     MinWidth="75" Content="{Binding Source={StaticResource Lang}, XPath=cancel}"
                     Click="BtCancel_OnClick"/>
-        </Grid>
     </Grid>
-</controls:MetroWindow>
+</mpc:BaseMetroWindow>

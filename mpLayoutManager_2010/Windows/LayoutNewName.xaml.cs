@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using ModPlusAPI.Windows.Helpers;
 using mpWin = ModPlusAPI.Windows;
 
 namespace mpLayoutManager.Windows
@@ -15,7 +14,7 @@ namespace mpLayoutManager.Windows
         public LayoutNewName()
         {
             InitializeComponent();
-            this.OnWindowStartUp();
+            Title = ModPlusAPI.Language.GetItem(LangItem, "h10");
         }
 
         private void BtAccept_OnClick(object sender, RoutedEventArgs e)

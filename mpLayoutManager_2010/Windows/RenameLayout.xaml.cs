@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using ModPlusAPI.Windows;
-using ModPlusAPI.Windows.Helpers;
 
 namespace mpLayoutManager.Windows
 {
@@ -16,7 +14,7 @@ namespace mpLayoutManager.Windows
         public RenameLayout()
         {
             InitializeComponent();
-            this.OnWindowStartUp();
+            Title = ModPlusAPI.Language.GetItem(LangItem, "h26");
             Loaded += RenameLayout_Loaded;
         }
 

@@ -5,13 +5,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ModPlusAPI;component/Windows/WinResources/Styles.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/ModPlusAPI;component/Windows/WinResources/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <XmlDataProvider x:Key="Lang" Source="E:/ModPlus/Languages/en-US.xml" XPath="ModPlus/mpLayoutManager"/>
         </ResourceDictionary>
@@ -33,26 +27,26 @@
                 <Path x:Key="AppbarPageAdd" Fill="#FF000000" Data="F1M43,30L50.75,30 43,22.25 43,30z M52,34L39,34 39,21 24,21 24,45 20,45 20,17 43.25,17 56,29.75 56,59 34,59 34,55 52,55 52,34z M28,38L33,38 33,46 41,46 41,51 33,51 33,59 28,59 28,51 20,51 20,46 28,46 28,38z M20,59L20,52 24,52 24,55 27,55 27,59 20,59z"/>
                 <Path x:Key="AppbarPageSolidAdd" Fill="#FF000000" Data="F1M17,28L17,23 23,23 23,17 28,17 28,23 34,23 34,28 28,28 28,34 23,34 23,28 17,28z M40,19L40,31 52,31 52,57 24,57 24,35 29,35 29,29 35,29 35,22 29,22 29,19 40,19z M41,30L41,19 52,30 41,30z"/>
             </Grid.Resources>
-            <Button Name="BtAddLayuot" Grid.Column="0" Margin="2" Padding="2"
+            <Button Name="BtAddLayuot" Grid.Column="0" Margin="2" Padding="2" MinWidth="0"
                     ToolTip="{Binding Source={StaticResource Lang}, XPath=h1}" Click="BtAddLayuot_OnClick"
                     ToolTipService.InitialShowDelay="100">
                 <Rectangle Width="20" Height="20" Fill="#FF696969">
                     <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Uniform" Visual="{DynamicResource AppbarPageAdd}"/>
+                        <VisualBrush Stretch="Uniform" Visual="{StaticResource AppbarPageAdd}"/>
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </Button>
-            <Button Name="BtAddLayuotByTemplate" Grid.Column="1" Padding="2" Margin="0,2,2,2"
+            <Button Name="BtAddLayuotByTemplate" Grid.Column="1" Padding="2" Margin="0,2,2,2" MinWidth="0"
                     ToolTip="{Binding Source={StaticResource Lang}, XPath=h2}" Click="BtAddLayuotByTemplate_OnClick"
                     ToolTipService.InitialShowDelay="100">
                 <Rectangle Width="20" Height="20" Fill="#FF696969">
                     <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Uniform" Visual="{DynamicResource AppbarPageSolidAdd}"/>
+                        <VisualBrush Stretch="Uniform" Visual="{StaticResource AppbarPageSolidAdd}"/>
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </Button>
             <Button Name="LmSettings" Grid.Column="3" Margin="2" Padding="2"
-                    Click="LmSettings_OnClick">
+                    Click="LmSettings_OnClick" MinWidth="0">
                 <Rectangle Width="20" Height="20" Fill="#FF696969">
                     <Rectangle.OpacityMask>
                         <VisualBrush Stretch="Uniform" Visual="{StaticResource AppbarSettings}"/>

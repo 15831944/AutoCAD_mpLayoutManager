@@ -1,13 +1,12 @@
-﻿<controls:MetroWindow xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<mpc:BaseMetroWindow xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:mpc="clr-namespace:ModPlusAPI.Windows.Mpc;assembly=ModPlusAPI"
                       x:Class="mpLayoutManager.Windows.RenameLayout"
-                      WindowStartupLocation="CenterScreen"
                       ResizeMode="NoResize" SizeToContent="WidthAndHeight"
-                      ShowMaxRestoreButton="False" ShowMinButton="False"
-                      ShowTitleBar="False" SaveWindowPosition="True"
+                      ShowCloseButton="False"
                       KeyDown="RenameLayout_OnKeyDown">
-    <controls:MetroWindow.Resources>
+    <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml"/>
@@ -20,45 +19,37 @@
             </ResourceDictionary.MergedDictionaries>
             <XmlDataProvider x:Key="Lang" Source="E:/ModPlus/Languages/en-US.xml" XPath="ModPlus/mpLayoutManager"/>
         </ResourceDictionary>
-    </controls:MetroWindow.Resources>
-    <Grid Margin="5">
+    </Window.Resources>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock FontSize="16" Grid.Row="0" Margin="0,0,20,5"
-                   Text="{Binding Source={StaticResource Lang}, XPath=h26}"/>
-        <Grid Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Margin="2"
-                       Text="{Binding Source={StaticResource Lang}, XPath=h27}"
-                       Grid.Column="0" Grid.ColumnSpan="2"/>
-            <TextBox Name="TbCurrentName" Grid.Row="1" MinWidth="250" Margin="2"
-                     IsReadOnly="True" MaxWidth="400" TextWrapping="Wrap"
-                     Grid.Column="0" Grid.ColumnSpan="2"/>
-            <TextBlock Grid.Row="2" Margin="2"
-                       Text="{Binding Source={StaticResource Lang}, XPath=h28}"
-                       Grid.Column="0" Grid.ColumnSpan="2"/>
-            <TextBox Name="TbNewName" Grid.Row="3" MinWidth="250"
-                     Margin="2" MaxWidth="400" TextWrapping="Wrap"
-                     controls:TextBoxHelper.ClearTextButton="True"
-                     Grid.Column="0" Grid.ColumnSpan="2"/>
-            <Button Name="BtAccept" Grid.Column="0" Grid.Row="4"
-                    Margin="2" HorizontalAlignment="Left"
-                    Content="{Binding Source={StaticResource Lang}, XPath=accept}" Click="BtAccept_OnClick"/>
-            <Button Name="BtCancel" Grid.Column="1" Grid.Row="4"
-                    Margin="2" HorizontalAlignment="Right"
-                    Content="{Binding Source={StaticResource Lang}, XPath=cancel}" Click="BtCancel_OnClick"/>
-        </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Margin="2"
+                   Text="{Binding Source={StaticResource Lang}, XPath=h27}"
+                   Grid.Column="0" Grid.ColumnSpan="2"/>
+        <TextBox Name="TbCurrentName" Grid.Row="1" MinWidth="250" Margin="2"
+                 IsReadOnly="True" MaxWidth="400" TextWrapping="Wrap"
+                 Grid.Column="0" Grid.ColumnSpan="2"/>
+        <TextBlock Grid.Row="2" Margin="2"
+                   Text="{Binding Source={StaticResource Lang}, XPath=h28}"
+                   Grid.Column="0" Grid.ColumnSpan="2"/>
+        <TextBox Name="TbNewName" Grid.Row="3" MinWidth="250"
+                 Margin="2" MaxWidth="400" TextWrapping="Wrap"
+                 mah:TextBoxHelper.ClearTextButton="True"
+                 Grid.Column="0" Grid.ColumnSpan="2"/>
+        <Button Name="BtAccept" Grid.Column="0" Grid.Row="4"
+                Margin="2" HorizontalAlignment="Left"
+                Content="{Binding Source={StaticResource Lang}, XPath=accept}" Click="BtAccept_OnClick"/>
+        <Button Name="BtCancel" Grid.Column="1" Grid.Row="4"
+                Margin="2" HorizontalAlignment="Right"
+                Content="{Binding Source={StaticResource Lang}, XPath=cancel}" Click="BtCancel_OnClick"/>
     </Grid>
-</controls:MetroWindow>
+</mpc:BaseMetroWindow>
