@@ -32,6 +32,7 @@ namespace mpLayoutManager
         public LmPalette()
         {
             InitializeComponent();
+            ModPlusAPI.Language.SetLanguageProviderForWindow(Resources);
             ModPlusAPI.Windows.Helpers.WindowHelpers.ChangeThemeForResurceDictionary(Resources, true);
             Loaded += LmPalette_Loaded;
         }
