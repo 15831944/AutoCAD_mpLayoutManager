@@ -1,24 +1,20 @@
-﻿#if ac2010
-using AcApp = Autodesk.AutoCAD.ApplicationServices.Application;
-#elif ac2013
-using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
-#endif
-using Autodesk.AutoCAD.DatabaseServices;
-using mpLayoutManager.Windows;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using Autodesk.AutoCAD.ApplicationServices;
-using ModPlusAPI;
-using ModPlusAPI.Windows;
-
-namespace mpLayoutManager
+﻿namespace mpLayoutManager
 {
+    using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
+    using Autodesk.AutoCAD.DatabaseServices;
+    using mpLayoutManager.Windows;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using Autodesk.AutoCAD.ApplicationServices;
+    using ModPlusAPI;
+    using ModPlusAPI.Windows;
+
     public partial class LmPalette
     {
         private const string LangItem = "mpLayoutManager";
@@ -32,8 +28,8 @@ namespace mpLayoutManager
         public LmPalette()
         {
             InitializeComponent();
-            ModPlusAPI.Language.SetLanguageProviderForWindow(Resources);
-            ModPlusAPI.Windows.Helpers.WindowHelpers.ChangeThemeForResurceDictionary(Resources, true);
+            ModPlusAPI.Language.SetLanguageProviderForResourceDictionary(Resources);
+            ModPlusAPI.Windows.Helpers.WindowHelpers.ChangeStyleForResourceDictionary(Resources);
             Loaded += LmPalette_Loaded;
         }
 
@@ -106,10 +102,11 @@ namespace mpLayoutManager
             {
                 LvLayouts.ItemsSource = null;
                 string currentLayoutName = GetCurrentLayoutName();
-                foreach (LayoutForBinding currentDocLayout in _currentDocLayouts)
-                {
-                    currentDocLayout.TabSelected = currentDocLayout.LayoutName.Equals(currentLayoutName);
-                }
+                if(!string.IsNullOrEmpty(currentLayoutName))
+                    foreach (LayoutForBinding currentDocLayout in _currentDocLayouts)
+                    {
+                        currentDocLayout.TabSelected = currentDocLayout.LayoutName.Equals(currentLayoutName);
+                    }
                 LvLayouts.ItemsSource = _currentDocLayouts;
             }
             catch (Exception exception)
@@ -118,7 +115,7 @@ namespace mpLayoutManager
             }
         }
 
-        private void BtAddLayuot_OnClick(object sender, RoutedEventArgs e)
+        private void BtAddLayout_OnClick(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -215,7 +212,7 @@ namespace mpLayoutManager
             }
         }
 
-        private void BtAddLayuotByTemplate_OnClick(object sender, RoutedEventArgs e)
+        private void BtAddLayoutByTemplate_OnClick(object sender, RoutedEventArgs e)
         {
             AcApp.DocumentManager.MdiActiveDocument.SendStringToExecute("_.LAYOUT _T ", true, false, false);
         }
@@ -305,7 +302,14 @@ namespace mpLayoutManager
 
         private static string GetCurrentLayoutName()
         {
-            return LayoutManager.Current.CurrentLayout;
+            try
+            {
+                return LayoutManager.Current?.CurrentLayout;
+            }
+            catch
+            {
+                return string.Empty;
+            }
         }
 
         private int GetNewLayoutNumber(LayoutManager lm)

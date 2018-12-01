@@ -61,10 +61,5 @@ namespace mpLayoutManager.Windows
             ChkShowModel.IsChecked = !bool.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpLayoutManager", "ShowModel"), out flag) | flag;
             ChkAskLayoutName.IsChecked = !bool.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpLayoutManager", "AskLayoutName"), out flag) | flag;
         }
-
-        private void LmSettings_OnKeyDown(object sender, KeyEventArgs e)
-        {
-            Close();
-        }
     }
 }

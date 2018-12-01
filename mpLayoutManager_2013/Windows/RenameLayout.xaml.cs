@@ -55,15 +55,14 @@ namespace mpLayoutManager.Windows
 
         private void RenameLayout_OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Escape)
-            {
-                DialogResult = false;
-            }
-            if (e.Key == Key.Return)
-            {
-                OnAccept();
-            }
+            //if (e.Key == Key.Escape)
+            //{
+            //    DialogResult = false;
+            //}
+            //if (e.Key == Key.Return)
+            //{
+            //    OnAccept();
+            //}
         }
-        
     }
 }

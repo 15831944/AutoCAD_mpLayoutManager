@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Input;
-using mpWin = ModPlusAPI.Windows;
-
-namespace mpLayoutManager.Windows
+﻿namespace mpLayoutManager.Windows
 {
+    using System.Collections.Generic;
+    using System.Windows;
+    using mpWin = ModPlusAPI.Windows;
+
     public partial class LayoutNewName
     {
         private const string LangItem = "mpLayoutManager";
@@ -25,18 +24,6 @@ namespace mpLayoutManager.Windows
         private void BtCancel_OnClick(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
-        }
-
-        private void LayoutNewName_OnKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape)
-            {
-                DialogResult = false;
-            }
-            if (e.Key == Key.Return)
-            {
-                OnAccept();
-            }
         }
 
         private void LayoutNewName_OnLoaded(object sender, RoutedEventArgs e)

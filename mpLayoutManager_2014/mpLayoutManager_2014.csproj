@@ -17,8 +17,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\..\..\ModPlus\Functions\mpLayoutManager\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;ac2013</DefineConstants>
+    <OutputPath>..\..\..\..\..\..\..\ModPlus\Functions\AutoCAD\mpLayoutManager\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -26,31 +26,31 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\..\..\ModPlus\Functions\mpLayoutManager\</OutputPath>
-    <DefineConstants>TRACE;ac2013</DefineConstants>
+    <OutputPath>..\..\..\..\..\..\..\ModPlus\Functions\AutoCAD\mpLayoutManager\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="accoremgd">
-      <HintPath>..\..\..\..\_Acad dlls\2014\accoremgd.dll</HintPath>
+      <HintPath>C:\_Acad dlls\2014\accoremgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="acdbmgd">
-      <HintPath>..\..\..\..\_Acad dlls\2014\acdbmgd.dll</HintPath>
+      <HintPath>C:\_Acad dlls\2014\acdbmgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="acmgd">
-      <HintPath>..\..\..\..\_Acad dlls\2014\acmgd.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MahApps.Metro">
-      <HintPath>..\..\..\..\..\..\..\ModPlus\Extensions\MahApps.Metro.dll</HintPath>
+      <HintPath>C:\_Acad dlls\2014\acmgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ModPlusAPI">
       <HintPath>..\..\..\..\..\..\..\ModPlus\Extensions\ModPlusAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ModPlusStyle">
+      <HintPath>..\..\..\..\..\..\..\ModPlus\Extensions\ModPlusStyle.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ModPlus_2014">
@@ -69,35 +69,38 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\mpLayoutManager_2010\DragAdorner.cs">
+    <Compile Include="..\mpLayoutManager_2013\DragAdorner.cs">
       <Link>DragAdorner.cs</Link>
     </Compile>
-    <Compile Include="..\mpLayoutManager_2010\FunctionStart.cs">
+    <Compile Include="..\mpLayoutManager_2013\FunctionStart.cs">
       <Link>FunctionStart.cs</Link>
     </Compile>
-    <Compile Include="..\mpLayoutManager_2010\ListViewDragDropManager.cs">
+    <Compile Include="..\mpLayoutManager_2013\ListViewDragDropManager.cs">
       <Link>ListViewDragDropManager.cs</Link>
     </Compile>
-    <Compile Include="..\mpLayoutManager_2010\lmPalette.xaml.cs">
+    <Compile Include="..\mpLayoutManager_2013\lmPalette.xaml.cs">
       <Link>lmPalette.xaml.cs</Link>
       <DependentUpon>lmPalette.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\mpLayoutManager_2010\MouseUtilities.cs">
+    <Compile Include="..\mpLayoutManager_2013\MouseUtilities.cs">
       <Link>MouseUtilities.cs</Link>
     </Compile>
-    <Compile Include="..\mpLayoutManager_2010\Windows\LayoutNewName.xaml.cs">
+    <Compile Include="..\mpLayoutManager_2013\Properties\AssemblyInfoCommon.cs">
+      <Link>Properties\AssemblyInfoCommon.cs</Link>
+    </Compile>
+    <Compile Include="..\mpLayoutManager_2013\Windows\LayoutNewName.xaml.cs">
       <Link>Windows\LayoutNewName.xaml.cs</Link>
       <DependentUpon>LayoutNewName.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\mpLayoutManager_2010\Windows\LmSettings.xaml.cs">
+    <Compile Include="..\mpLayoutManager_2013\Windows\LmSettings.xaml.cs">
       <Link>Windows\LmSettings.xaml.cs</Link>
       <DependentUpon>LmSettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\mpLayoutManager_2010\Windows\MoveCopyLayout.xaml.cs">
+    <Compile Include="..\mpLayoutManager_2013\Windows\MoveCopyLayout.xaml.cs">
       <Link>Windows\MoveCopyLayout.xaml.cs</Link>
       <DependentUpon>MoveCopyLayout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\mpLayoutManager_2010\Windows\RenameLayout.xaml.cs">
+    <Compile Include="..\mpLayoutManager_2013\Windows\RenameLayout.xaml.cs">
       <Link>Windows\RenameLayout.xaml.cs</Link>
       <DependentUpon>RenameLayout.xaml</DependentUpon>
     </Compile>
@@ -105,39 +108,53 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\mpLayoutManager_2010\Resources\MpLayoutManager_16x16.png">
-      <Link>Resources\MpLayoutManager_16x16.png</Link>
-    </Resource>
-    <Resource Include="..\mpLayoutManager_2010\Resources\MpLayoutManager_32x32.png">
-      <Link>Resources\MpLayoutManager_32x32.png</Link>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="..\mpLayoutManager_2010\lmPalette.xaml">
+    <Page Include="..\mpLayoutManager_2013\lmPalette.xaml">
       <Link>lmPalette.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\mpLayoutManager_2010\Windows\LayoutNewName.xaml">
+    <Page Include="..\mpLayoutManager_2013\Windows\LayoutNewName.xaml">
       <Link>Windows\LayoutNewName.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\mpLayoutManager_2010\Windows\LmSettings.xaml">
+    <Page Include="..\mpLayoutManager_2013\Windows\LmSettings.xaml">
       <Link>Windows\LmSettings.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\mpLayoutManager_2010\Windows\MoveCopyLayout.xaml">
+    <Page Include="..\mpLayoutManager_2013\Windows\MoveCopyLayout.xaml">
       <Link>Windows\MoveCopyLayout.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\mpLayoutManager_2010\Windows\RenameLayout.xaml">
+    <Page Include="..\mpLayoutManager_2013\Windows\RenameLayout.xaml">
       <Link>Windows\RenameLayout.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\mpLayoutManager_2013\Resources\mpLayoutManager_16x16.png">
+      <Link>Resources\mpLayoutManager_16x16.png</Link>
+    </Resource>
+    <Resource Include="..\mpLayoutManager_2013\Resources\mpLayoutManager_16x16_dark.png">
+      <Link>Resources\mpLayoutManager_16x16_dark.png</Link>
+    </Resource>
+    <Resource Include="..\mpLayoutManager_2013\Resources\mpLayoutManager_32x32.png">
+      <Link>Resources\mpLayoutManager_32x32.png</Link>
+    </Resource>
+    <Resource Include="..\mpLayoutManager_2013\Resources\mpLayoutManager_32x32_dark.png">
+      <Link>Resources\mpLayoutManager_32x32_dark.png</Link>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\mpLayoutManager_2013\Resources\NewLayoutFromTemplate_16x16.png">
+      <Link>Resources\NewLayoutFromTemplate_16x16.png</Link>
+    </Resource>
+    <Resource Include="..\mpLayoutManager_2013\Resources\NewLayout_16x16.png">
+      <Link>Resources\NewLayout_16x16.png</Link>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,8 +1,4 @@
-﻿#if ac2010
-using AcApp = Autodesk.AutoCAD.ApplicationServices.Application;
-#elif ac2013
-using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
-#endif
+﻿using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 using Autodesk.AutoCAD.DatabaseServices;
 using System;
 using System.Collections.ObjectModel;
@@ -40,19 +36,6 @@ namespace mpLayoutManager.Windows
             DialogResult = false;
         }
         
-
-        private void MoveCopyLayout_OnKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape)
-            {
-                DialogResult = false;
-            }
-            if (e.Key == Key.Return)
-            {
-                OnAccept();
-            }
-        }
-
         private void OnAccept()
         {
             if (LbLayouts.SelectedIndex != -1)
