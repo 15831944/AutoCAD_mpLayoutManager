@@ -21,8 +21,6 @@ namespace mpLayoutManager
 
         private int indexToSelect;
 
-        private bool isDragInProgress;
-
         private ItemType itemUnderDragCursor;
 
         private ListView listView;
@@ -138,11 +136,7 @@ namespace mpLayoutManager
             }
         }
 
-        public bool IsDragInProgress
-        {
-            get => isDragInProgress;
-            private set => isDragInProgress = value;
-        }
+        public bool IsDragInProgress { get; private set; }
 
         private bool IsMouseOverScrollbar
         {
@@ -158,7 +152,9 @@ namespace mpLayoutManager
                     {
                         if (!(visualHit is ScrollBar))
                         {
-                            visualHit = ((visualHit is Visual ? false : !(visualHit is Visual3D)) ? LogicalTreeHelper.GetParent(visualHit) : VisualTreeHelper.GetParent(visualHit));
+                            visualHit = (visualHit is Visual ? false : !(visualHit is Visual3D)) 
+                                ? LogicalTreeHelper.GetParent(visualHit) 
+                                : VisualTreeHelper.GetParent(visualHit);
                         }
                         else
                         {
@@ -181,7 +177,7 @@ namespace mpLayoutManager
             get => itemUnderDragCursor;
             set
             {
-                if ((object)itemUnderDragCursor != (object)value)
+                if (itemUnderDragCursor != value)
                 {
                     for (int i = 0; i < 2; i++)
                     {
@@ -204,10 +200,7 @@ namespace mpLayoutManager
 
         public ListView ListView
         {
-            get
-            {
-                return listView;
-            }
+            get => listView;
             set
             {
                 if (IsDragInProgress)
@@ -216,12 +209,12 @@ namespace mpLayoutManager
                 }
                 if (listView != null)
                 {
-                    listView.PreviewMouseLeftButtonDown -= new MouseButtonEventHandler(listView_PreviewMouseLeftButtonDown);
-                    listView.PreviewMouseMove -= new MouseEventHandler(listView_PreviewMouseMove);
-                    listView.DragOver -= new DragEventHandler(listView_DragOver);
-                    listView.DragLeave -= new DragEventHandler(listView_DragLeave);
-                    listView.DragEnter -= new DragEventHandler(listView_DragEnter);
-                    listView.Drop -= new DragEventHandler(listView_Drop);
+                    listView.PreviewMouseLeftButtonDown -= listView_PreviewMouseLeftButtonDown;
+                    listView.PreviewMouseMove -= listView_PreviewMouseMove;
+                    listView.DragOver -= listView_DragOver;
+                    listView.DragLeave -= listView_DragLeave;
+                    listView.DragEnter -= listView_DragEnter;
+                    listView.Drop -= listView_Drop;
                 }
                 listView = value;
                 if (listView != null)
@@ -230,22 +223,19 @@ namespace mpLayoutManager
                     {
                         listView.AllowDrop = true;
                     }
-                    listView.PreviewMouseLeftButtonDown += new MouseButtonEventHandler(listView_PreviewMouseLeftButtonDown);
-                    listView.PreviewMouseMove += new MouseEventHandler(listView_PreviewMouseMove);
-                    listView.DragOver += new DragEventHandler(listView_DragOver);
-                    listView.DragLeave += new DragEventHandler(listView_DragLeave);
-                    listView.DragEnter += new DragEventHandler(listView_DragEnter);
-                    listView.Drop += new DragEventHandler(listView_Drop);
+                    listView.PreviewMouseLeftButtonDown += listView_PreviewMouseLeftButtonDown;
+                    listView.PreviewMouseMove += listView_PreviewMouseMove;
+                    listView.DragOver += listView_DragOver;
+                    listView.DragLeave += listView_DragLeave;
+                    listView.DragEnter += listView_DragEnter;
+                    listView.Drop += listView_Drop;
                 }
             }
         }
 
         public bool ShowDragAdorner
         {
-            get
-            {
-                return showDragAdorner;
-            }
+            get => showDragAdorner;
             set
             {
                 if (IsDragInProgress)
@@ -346,13 +336,18 @@ namespace mpLayoutManager
 
         private bool IsMouseOver(Visual target)
         {
-            Rect descendantBounds = VisualTreeHelper.GetDescendantBounds(target);
-            return descendantBounds.Contains(MouseUtilities.GetMousePosition(target));
+            if (target != null)
+            {
+                Rect descendantBounds = VisualTreeHelper.GetDescendantBounds(target);
+                return descendantBounds.Contains(MouseUtilities.GetMousePosition(target));
+            }
+
+            return false;
         }
 
         private void listView_DragEnter(object sender, DragEventArgs e)
         {
-            if ((dragAdorner == null ? false : dragAdorner.Visibility != Visibility.Visible))
+            if (dragAdorner != null && dragAdorner.Visibility != Visibility.Visible)
             {
                 UpdateDragAdornerLocation();
                 dragAdorner.Visibility = Visibility.Visible;
@@ -476,7 +471,6 @@ namespace mpLayoutManager
 
         private void listView_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            AdornerLayer adornerLayer;
             if (CanStartDragOperation)
             {
                 if (listView.SelectedIndex != indexToSelect)
@@ -488,14 +482,7 @@ namespace mpLayoutManager
                     ListViewItem listViewItem = GetListViewItem(listView.SelectedIndex);
                     if (listViewItem != null)
                     {
-                        if (ShowDragAdornerResolved)
-                        {
-                            adornerLayer = InitializeAdornerLayer(listViewItem);
-                        }
-                        else
-                        {
-                            adornerLayer = null;
-                        }
+                        var adornerLayer = ShowDragAdornerResolved ? InitializeAdornerLayer(listViewItem) : null;
                         AdornerLayer adornerLayer1 = adornerLayer;
                         InitializeDragOperation(listViewItem);
                         PerformDragOperation();
@@ -507,8 +494,8 @@ namespace mpLayoutManager
 
         private void PerformDragOperation()
         {
-            ItemType selectedItem = (ItemType)(listView.SelectedItem as ItemType);
-            if (DragDrop.DoDragDrop(listView, selectedItem, DragDropEffects.Move | DragDropEffects.Link) != DragDropEffects.None)
+            if (listView.SelectedItem is ItemType selectedItem &&
+                DragDrop.DoDragDrop(listView, selectedItem, DragDropEffects.Move | DragDropEffects.Link) != DragDropEffects.None)
             {
                 listView.SelectedItem = selectedItem;
             }
@@ -531,9 +518,9 @@ namespace mpLayoutManager
     }
     public static class ListViewItemDragState
     {
-        public readonly static DependencyProperty IsBeingDraggedProperty;
+        public static readonly DependencyProperty IsBeingDraggedProperty;
 
-        public readonly static DependencyProperty IsUnderDragCursorProperty;
+        public static readonly DependencyProperty IsUnderDragCursorProperty;
 
         static ListViewItemDragState()
         {
@@ -576,57 +563,21 @@ namespace mpLayoutManager
 
         private DragDropEffects effects;
 
-        public DragDropEffects AllowedEffects
-        {
-            get
-            {
-                return allowedEffects;
-            }
-        }
+        public DragDropEffects AllowedEffects => allowedEffects;
 
-        public ItemType DataItem
-        {
-            get
-            {
-                return dataItem;
-            }
-        }
+        public ItemType DataItem => dataItem;
 
         public DragDropEffects Effects
         {
-            get
-            {
-                return effects;
-            }
-            set
-            {
-                effects = value;
-            }
+            get => effects;
+            set => effects = value;
         }
 
-        public ObservableCollection<ItemType> ItemsSource
-        {
-            get
-            {
-                return itemsSource;
-            }
-        }
+        public ObservableCollection<ItemType> ItemsSource => itemsSource;
 
-        public int NewIndex
-        {
-            get
-            {
-                return newIndex;
-            }
-        }
+        public int NewIndex => newIndex;
 
-        public int OldIndex
-        {
-            get
-            {
-                return oldIndex;
-            }
-        }
+        public int OldIndex => oldIndex;
 
         internal ProcessDropEventArgs(ObservableCollection<ItemType> itemsSource, ItemType dataItem, int oldIndex, int newIndex, DragDropEffects allowedEffects)
         {
