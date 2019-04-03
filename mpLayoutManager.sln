@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpLayoutManager_2013", "mpLayoutManager_2013\mpLayoutManager_2013.csproj", "{7F169C59-523A-42C6-AE79-4AA84D40A983}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpLayoutManager_2018", "mpLayoutManager_2018\mpLayoutManager_2018.csproj", "{81A13FAF-0B63-4748-B9EC-0091661360B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpLayoutManager_2019", "mpLayoutManager_2019\mpLayoutManager_2019.csproj", "{2A903C50-9214-4623-95FF-4D2001F9A06D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpLayoutManager_2020", "mpLayoutManager_2020\mpLayoutManager_2020.csproj", "{6B70D833-14F2-4D3A-A59F-C0DEDEA612A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{2A903C50-9214-4623-95FF-4D2001F9A06D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A903C50-9214-4623-95FF-4D2001F9A06D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A903C50-9214-4623-95FF-4D2001F9A06D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B70D833-14F2-4D3A-A59F-C0DEDEA612A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B70D833-14F2-4D3A-A59F-C0DEDEA612A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B70D833-14F2-4D3A-A59F-C0DEDEA612A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B70D833-14F2-4D3A-A59F-C0DEDEA612A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

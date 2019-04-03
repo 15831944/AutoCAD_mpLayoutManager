@@ -1,45 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0E4566FF-145D-4C82-9265-14B7CA1087BE}</ProjectGuid>
+    <ProjectGuid>{6B70D833-14F2-4D3A-A59F-C0DEDEA612A0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>mpLayoutManager</RootNamespace>
-    <AssemblyName>mpLayoutManager_2017</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <AssemblyName>mpLayoutManager_2020</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;A2017</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;A2020</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;A2017</DefineConstants>
+    <DefineConstants>TRACE;A2020</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="accoremgd">
-      <HintPath>C:\_Acad dlls\2017\accoremgd.dll</HintPath>
+      <HintPath>C:\_Acad dlls\2020\accoremgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="acdbmgd">
-      <HintPath>C:\_Acad dlls\2017\acdbmgd.dll</HintPath>
+      <HintPath>C:\_Acad dlls\2020\acdbmgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="acmgd">
-      <HintPath>C:\_Acad dlls\2017\acmgd.dll</HintPath>
+      <HintPath>C:\_Acad dlls\2020\acmgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ModPlusAPI">
@@ -50,8 +53,8 @@
       <HintPath>..\..\..\..\..\..\..\ModPlus\Extensions\ModPlusStyle.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ModPlus_2017">
-      <HintPath>..\..\..\..\..\..\..\ModPlus\Extensions\ModPlus_2017.dll</HintPath>
+    <Reference Include="ModPlus_2020">
+      <HintPath>..\..\..\..\..\..\..\ModPlus\Extensions\ModPlus_2020.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -61,12 +64,11 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="..\mpLayoutManager_2013\DragAdorner.cs">
       <Link>DragAdorner.cs</Link>
@@ -90,22 +92,52 @@
     <Compile Include="..\mpLayoutManager_2013\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\mpLayoutManager_2013\Windows\LayoutNewName.xaml.cs">
+    <Compile Include="..\mplayoutmanager_2013\windows\LayoutNewName.xaml.cs">
       <Link>Windows\LayoutNewName.xaml.cs</Link>
       <DependentUpon>LayoutNewName.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\mpLayoutManager_2013\Windows\LmSettings.xaml.cs">
+    <Compile Include="..\mplayoutmanager_2013\windows\LmSettings.xaml.cs">
       <Link>Windows\LmSettings.xaml.cs</Link>
       <DependentUpon>LmSettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\mpLayoutManager_2013\Windows\MoveCopyLayout.xaml.cs">
+    <Compile Include="..\mplayoutmanager_2013\windows\MoveCopyLayout.xaml.cs">
       <Link>Windows\MoveCopyLayout.xaml.cs</Link>
       <DependentUpon>MoveCopyLayout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\mpLayoutManager_2013\Windows\RenameLayout.xaml.cs">
+    <Compile Include="..\mplayoutmanager_2013\windows\RenameLayout.xaml.cs">
       <Link>Windows\RenameLayout.xaml.cs</Link>
       <DependentUpon>RenameLayout.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\mplayoutmanager_2013\resources\mpLayoutManager_16x16.png">
+      <Link>Resources\mpLayoutManager_16x16.png</Link>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\mplayoutmanager_2013\resources\mpLayoutManager_16x16_dark.png">
+      <Link>Resources\mpLayoutManager_16x16_dark.png</Link>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\mplayoutmanager_2013\resources\mpLayoutManager_32x32.png">
+      <Link>Resources\mpLayoutManager_32x32.png</Link>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\mplayoutmanager_2013\resources\mpLayoutManager_32x32_dark.png">
+      <Link>Resources\mpLayoutManager_32x32_dark.png</Link>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\mplayoutmanager_2013\resources\NewLayout_16x16.png">
+      <Link>Resources\NewLayout_16x16.png</Link>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\mplayoutmanager_2013\resources\NewLayoutFromTemplate_16x16.png">
+      <Link>Resources\NewLayoutFromTemplate_16x16.png</Link>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Page Include="..\mpLayoutManager_2013\lmPalette.xaml">
@@ -113,48 +145,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\mpLayoutManager_2013\Windows\LayoutNewName.xaml">
+    <Page Include="..\mplayoutmanager_2013\windows\LayoutNewName.xaml">
       <Link>Windows\LayoutNewName.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\mpLayoutManager_2013\Windows\LmSettings.xaml">
+    <Page Include="..\mplayoutmanager_2013\windows\LmSettings.xaml">
       <Link>Windows\LmSettings.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\mpLayoutManager_2013\Windows\MoveCopyLayout.xaml">
+    <Page Include="..\mplayoutmanager_2013\windows\MoveCopyLayout.xaml">
       <Link>Windows\MoveCopyLayout.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\mpLayoutManager_2013\Windows\RenameLayout.xaml">
+    <Page Include="..\mplayoutmanager_2013\windows\RenameLayout.xaml">
       <Link>Windows\RenameLayout.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="..\mpLayoutManager_2013\Resources\mpLayoutManager_16x16.png">
-      <Link>Resources\mpLayoutManager_16x16.png</Link>
-    </Resource>
-    <Resource Include="..\mpLayoutManager_2013\Resources\mpLayoutManager_16x16_dark.png">
-      <Link>Resources\mpLayoutManager_16x16_dark.png</Link>
-    </Resource>
-    <Resource Include="..\mpLayoutManager_2013\Resources\mpLayoutManager_32x32.png">
-      <Link>Resources\mpLayoutManager_32x32.png</Link>
-    </Resource>
-    <Resource Include="..\mpLayoutManager_2013\Resources\mpLayoutManager_32x32_dark.png">
-      <Link>Resources\mpLayoutManager_32x32_dark.png</Link>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="..\mpLayoutManager_2013\Resources\NewLayoutFromTemplate_16x16.png">
-      <Link>Resources\NewLayoutFromTemplate_16x16.png</Link>
-    </Resource>
-    <Resource Include="..\mpLayoutManager_2013\Resources\NewLayout_16x16.png">
-      <Link>Resources\NewLayout_16x16.png</Link>
-    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -165,11 +175,4 @@ if $(ConfigurationName) == Release (
 "$(ModPlusPostBuild)" "AutoCAD" "$(TargetPath)" "s"
 )</PostBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

@@ -124,7 +124,7 @@ namespace mpLayoutManager
         [CommandMethod("ModPlus", "mpLayoutManager", CommandFlags.Modal)]
         public void Start()
         {
-            Statistic.SendCommandStarting(new Interface());
+            Statistic.SendCommandStarting(new ModPlusConnector());
             try
             {
                 if (!(!bool.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpLayoutManager", "AddToMpPalette"), out bool b) | b))
