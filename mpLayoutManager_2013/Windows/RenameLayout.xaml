@@ -3,8 +3,7 @@
                       xmlns:mps="https://modplus.org/winfx/xaml/controls"
                       x:Class="mpLayoutManager.Windows.RenameLayout"
                       ResizeMode="NoResize" SizeToContent="WidthAndHeight"
-                      ShowCloseButton="False"
-                      KeyDown="RenameLayout_OnKeyDown">
+                      ShowCloseButton="False">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
