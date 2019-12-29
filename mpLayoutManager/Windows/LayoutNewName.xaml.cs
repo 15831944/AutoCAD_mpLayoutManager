@@ -9,9 +9,9 @@
     public partial class LayoutNewName
     {
         private const string LangItem = "mpLayoutManager";
-        private readonly List<string> wrongSymbols = new List<string>
+        private readonly List<string> _wrongSymbols = new List<string>
         {
-            ">","<","/","\\","\"",":",";","?","*","|",",","=","`"
+            ">", "<", "/", "\\", "\"", ":", ";", "?", "*", "|", ",", "=", "`"
         };
 
         public List<string> LayoutsNames;
@@ -31,10 +31,10 @@
                 return;
             }
 
-            if (wrongSymbols.Any(wrongSymbol => TbNewName.Text.Contains(wrongSymbol)))
+            if (_wrongSymbols.Any(wrongSymbol => TbNewName.Text.Contains(wrongSymbol)))
             {
                 ModPlusAPI.Windows.MessageBox.Show(
-                    $"{ModPlusAPI.Language.GetItem(LangItem, "h29")}:{Environment.NewLine}{string.Join("", wrongSymbols.ToArray())}",
+                    $"{ModPlusAPI.Language.GetItem(LangItem, "h29")}:{Environment.NewLine}{string.Join(string.Empty, _wrongSymbols.ToArray())}",
                     MessageBoxIcon.Alert);
                 TbNewName.Focus();
                 return;

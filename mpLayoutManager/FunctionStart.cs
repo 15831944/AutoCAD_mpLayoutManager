@@ -1,17 +1,17 @@
-﻿using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
-using Autodesk.AutoCAD.Runtime;
-using Autodesk.AutoCAD.Windows;
-using System;
-using System.Drawing;
-using System.Reflection;
-using System.Windows.Forms;
-using System.Windows.Forms.Integration;
-using ModPlus;
-using ModPlusAPI;
-using ModPlusAPI.Windows;
-
-namespace mpLayoutManager
+﻿namespace mpLayoutManager
 {
+    using System;
+    using System.Drawing;
+    using System.Reflection;
+    using System.Windows.Forms;
+    using System.Windows.Forms.Integration;
+    using Autodesk.AutoCAD.Runtime;
+    using Autodesk.AutoCAD.Windows;
+    using ModPlus;
+    using ModPlusAPI;
+    using ModPlusAPI.Windows;
+    using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
+
     public class FunctionStart : IExtensionApplication
     {
         private const string LangItem = "mpLayoutManager";
@@ -41,6 +41,7 @@ namespace mpLayoutManager
                         flag = true;
                     }
                 }
+
                 if (!flag)
                 {
                     LmPalette lmPalette = new LmPalette();
@@ -56,6 +57,7 @@ namespace mpLayoutManager
                     }
                 }
             }
+
             if (_paletteSet != null)
             {
                 _paletteSet.Visible = false;
@@ -69,18 +71,16 @@ namespace mpLayoutManager
                 AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
                 Start();
             }
+
             return null;
         }
 
         public void Initialize()
         {
-            var loadLayoutManager = bool.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings,
-                "mpLayoutManager", "AutoLoad"), out bool b) & b;
-            var addLayoutManagerToMpPalette = bool.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings,
-                "mpLayoutManager", "AddToMpPalette"), out b) & b;
+            var loadLayoutManager = bool.TryParse(UserConfigFile.GetValue("mpLayoutManager", "AutoLoad"), out bool b) & b;
+            var addLayoutManagerToMpPalette = bool.TryParse(UserConfigFile.GetValue("mpLayoutManager", "AddToMpPalette"), out b) & b;
             if (loadLayoutManager & !addLayoutManagerToMpPalette)
             {
-
                 Start();
             }
             else if (loadLayoutManager & addLayoutManagerToMpPalette)
@@ -108,6 +108,7 @@ namespace mpLayoutManager
                     }
                 }
             }
+
             if (_paletteSet != null)
             {
                 _paletteSet.Visible = true;
@@ -127,7 +128,7 @@ namespace mpLayoutManager
             Statistic.SendCommandStarting(new ModPlusConnector());
             try
             {
-                if (!(!bool.TryParse(UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "mpLayoutManager", "AddToMpPalette"), out bool b) | b))
+                if (!(!bool.TryParse(UserConfigFile.GetValue("mpLayoutManager", "AddToMpPalette"), out bool b) | b))
                 {
                     RemoveFromMpPalette(false);
                     if (_paletteSet != null)
@@ -159,6 +160,7 @@ namespace mpLayoutManager
                     {
                         _paletteSet.Visible = false;
                     }
+
                     AddToMpPalette(true);
                 }
             }

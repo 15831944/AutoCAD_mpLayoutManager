@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Media3D;
-
-namespace mpLayoutManager
+﻿namespace mpLayoutManager
 {
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Documents;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Windows.Media.Media3D;
+
     public class ListViewDragDropManager<ItemType>
     where ItemType : class
     {
@@ -50,6 +50,7 @@ namespace mpLayoutManager
                 {
                     flag = false;
                 }
+
                 return flag;
             }
         }
@@ -63,10 +64,12 @@ namespace mpLayoutManager
                 {
                     throw new InvalidOperationException("Cannot set the DragAdornerOpacity property during a drag operation.");
                 }
+
                 if (value < 0 || value > 1)
                 {
                     throw new ArgumentOutOfRangeException("DragAdornerOpacity", value, "Must be between 0 and 1.");
                 }
+
                 dragAdornerOpacity = value;
             }
         }
@@ -110,6 +113,7 @@ namespace mpLayoutManager
                 {
                     flag = false;
                 }
+
                 return flag;
             }
         }
@@ -132,6 +136,7 @@ namespace mpLayoutManager
                         break;
                     }
                 }
+
                 return num;
             }
         }
@@ -162,12 +167,14 @@ namespace mpLayoutManager
                             return flag;
                         }
                     }
+
                     flag = false;
                 }
                 else
                 {
                     flag = false;
                 }
+
                 return flag;
             }
         }
@@ -185,6 +192,7 @@ namespace mpLayoutManager
                         {
                             itemUnderDragCursor = value;
                         }
+
                         if (itemUnderDragCursor != null)
                         {
                             ListViewItem listViewItem = GetListViewItem(itemUnderDragCursor);
@@ -207,6 +215,7 @@ namespace mpLayoutManager
                 {
                     throw new InvalidOperationException("Cannot set the ListView property during a drag operation.");
                 }
+
                 if (listView != null)
                 {
                     listView.PreviewMouseLeftButtonDown -= listView_PreviewMouseLeftButtonDown;
@@ -216,6 +225,7 @@ namespace mpLayoutManager
                     listView.DragEnter -= listView_DragEnter;
                     listView.Drop -= listView_Drop;
                 }
+
                 listView = value;
                 if (listView != null)
                 {
@@ -223,6 +233,7 @@ namespace mpLayoutManager
                     {
                         listView.AllowDrop = true;
                     }
+
                     listView.PreviewMouseLeftButtonDown += listView_PreviewMouseLeftButtonDown;
                     listView.PreviewMouseMove += listView_PreviewMouseMove;
                     listView.DragOver += listView_DragOver;
@@ -242,6 +253,7 @@ namespace mpLayoutManager
                 {
                     throw new InvalidOperationException("Cannot set the ShowDragAdorner property during a drag operation.");
                 }
+
                 showDragAdorner = value;
             }
         }
@@ -256,17 +268,20 @@ namespace mpLayoutManager
             showDragAdorner = true;
         }
 
-        public ListViewDragDropManager(ListView listView) : this()
+        public ListViewDragDropManager(ListView listView)
+            : this()
         {
             ListView = listView;
         }
 
-        public ListViewDragDropManager(ListView listView, double dragAdornerOpacity) : this(listView)
+        public ListViewDragDropManager(ListView listView, double dragAdornerOpacity)
+            : this(listView)
         {
             DragAdornerOpacity = dragAdornerOpacity;
         }
 
-        public ListViewDragDropManager(ListView listView, bool showDragAdorner) : this(listView)
+        public ListViewDragDropManager(ListView listView, bool showDragAdorner)
+            : this(listView)
         {
             ShowDragAdorner = showDragAdorner;
         }
@@ -277,8 +292,9 @@ namespace mpLayoutManager
             IsDragInProgress = false;
             if (ItemUnderDragCursor != null)
             {
-                ItemUnderDragCursor = default(ItemType);
+                ItemUnderDragCursor = default;
             }
+
             if (adornerLayer != null)
             {
                 adornerLayer.Remove(dragAdorner);
@@ -297,6 +313,7 @@ namespace mpLayoutManager
             {
                 listViewItem = null;
             }
+
             return listViewItem;
         }
 
@@ -311,6 +328,7 @@ namespace mpLayoutManager
             {
                 listViewItem = null;
             }
+
             return listViewItem;
         }
 
@@ -360,8 +378,9 @@ namespace mpLayoutManager
             {
                 if (ItemUnderDragCursor != null)
                 {
-                    ItemUnderDragCursor = default(ItemType);
+                    ItemUnderDragCursor = default;
                 }
+
                 if (dragAdorner != null)
                 {
                     dragAdorner.Visibility = Visibility.Collapsed;
@@ -376,8 +395,9 @@ namespace mpLayoutManager
             {
                 UpdateDragAdornerLocation();
             }
+
             int indexUnderDragCursor = IndexUnderDragCursor;
-            ItemUnderDragCursor = (indexUnderDragCursor < 0 ? default(ItemType) : (ItemType)(ListView.Items[indexUnderDragCursor] as ItemType));
+            ItemUnderDragCursor = indexUnderDragCursor < 0 ? default : ListView.Items[indexUnderDragCursor] as ItemType;
         }
 
         private void listView_Drop(object sender, DragEventArgs e)
@@ -386,19 +406,20 @@ namespace mpLayoutManager
             int indexUnderDragCursor;
             if (ItemUnderDragCursor != null)
             {
-                ItemUnderDragCursor = default(ItemType);
+                ItemUnderDragCursor = default;
             }
+
             e.Effects = DragDropEffects.None;
             if (e.Data.GetDataPresent(typeof(ItemType)))
             {
-                ItemType data = (ItemType)(e.Data.GetData(typeof(ItemType)) as ItemType);
-                if (data != null)
+                if (e.Data.GetData(typeof(ItemType)) is ItemType data)
                 {
                     itemsSource = listView.ItemsSource as ObservableCollection<ItemType>;
                     if (itemsSource == null)
                     {
                         throw new Exception("A ListView managed by ListViewDragManager must have its ItemsSource set to an ObservableCollection<ItemType>.");
                     }
+
                     int num = itemsSource.IndexOf(data);
                     indexUnderDragCursor = IndexUnderDragCursor;
                     if (indexUnderDragCursor < 0)
@@ -409,6 +430,7 @@ namespace mpLayoutManager
                             {
                                 indexUnderDragCursor = itemsSource.Count;
                             }
+
                             return;
                         }
                         else
@@ -416,7 +438,8 @@ namespace mpLayoutManager
                             indexUnderDragCursor = 0;
                         }
                     }
-                    //Label2:
+
+                    // Label2:
                     if (num != indexUnderDragCursor)
                     {
                         if (ProcessDrop == null)
@@ -429,6 +452,7 @@ namespace mpLayoutManager
                             {
                                 itemsSource.Move(num, indexUnderDragCursor);
                             }
+
                             e.Effects = DragDropEffects.Move;
                         }
                         else
@@ -440,10 +464,6 @@ namespace mpLayoutManager
                     }
                 }
             }
-            //return;
-            //Label1:
-            //indexUnderDragCursor = itemsSource.Count;
-            //goto Label2;
         }
 
         private void listView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -477,6 +497,7 @@ namespace mpLayoutManager
                 {
                     listView.SelectedIndex = indexToSelect;
                 }
+
                 if (listView.SelectedItem != null)
                 {
                     ListViewItem listViewItem = GetListViewItem(listView.SelectedIndex);
@@ -516,6 +537,7 @@ namespace mpLayoutManager
 
         public event EventHandler<ProcessDropEventArgs<ItemType>> ProcessDrop;
     }
+
     public static class ListViewItemDragState
     {
         public static readonly DependencyProperty IsBeingDraggedProperty;
@@ -548,6 +570,7 @@ namespace mpLayoutManager
             item.SetValue(IsUnderDragCursorProperty, value);
         }
     }
+
     public class ProcessDropEventArgs<ItemType> : EventArgs
     where ItemType : class
     {

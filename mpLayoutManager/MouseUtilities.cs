@@ -1,10 +1,10 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Media;
-
-namespace mpLayoutManager
+﻿namespace mpLayoutManager
 {
+    using System;
+    using System.Runtime.InteropServices;
+    using System.Windows;
+    using System.Windows.Media;
+
     public class MouseUtilities
     {
         [DllImport("user32.dll", CharSet = CharSet.None, ExactSpelling = false)]

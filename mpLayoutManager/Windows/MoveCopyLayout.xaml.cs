@@ -1,15 +1,14 @@
-﻿using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
-using Autodesk.AutoCAD.DatabaseServices;
-using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
-using System.Windows.Input;
-using ModPlusAPI.Windows;
-using Visibility = System.Windows.Visibility;
-
-namespace mpLayoutManager.Windows
+﻿namespace mpLayoutManager.Windows
 {
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Windows;
+    using Autodesk.AutoCAD.DatabaseServices;
+    using ModPlusAPI.Windows;
+    using AcApp = Autodesk.AutoCAD.ApplicationServices.Core.Application;
+    using Visibility = System.Windows.Visibility;
+
     public partial class MoveCopyLayout
     {
         private const string LangItem = "mpLayoutManager";
@@ -18,7 +17,6 @@ namespace mpLayoutManager.Windows
 
         public int SelectedLayoutTabOrder;
         
-
         public MoveCopyLayout()
         {
             InitializeComponent();
@@ -45,6 +43,7 @@ namespace mpLayoutManager.Windows
                     SelectedLayoutName = selectedItem.LayoutName;
                     SelectedLayoutTabOrder = selectedItem.TabOrder;
                 }
+
                 DialogResult = true;
             }
             else
@@ -86,8 +85,10 @@ namespace mpLayoutManager.Windows
                                 }
                             }
                         }
+
                         transaction.Commit();
                     }
+
                     observableCollection = new ObservableCollection<LayoutForBinding>(
                         from x in observableCollection
                         orderby x.TabOrder
@@ -120,10 +121,6 @@ namespace mpLayoutManager.Windows
             {
                 get;
                 set;
-            }
-
-            public LayoutForBinding()
-            {
             }
         }
 

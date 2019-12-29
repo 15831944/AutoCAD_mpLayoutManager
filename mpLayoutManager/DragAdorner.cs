@@ -1,10 +1,10 @@
-﻿using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Media;
-using System.Windows.Shapes;
-
-namespace mpLayoutManager
+﻿namespace mpLayoutManager
 {
+    using System.Windows;
+    using System.Windows.Documents;
+    using System.Windows.Media;
+    using System.Windows.Shapes;
+
     public class DragAdorner : Adorner
     {
         private readonly Rectangle child = null;
@@ -35,7 +35,8 @@ namespace mpLayoutManager
 
         protected override int VisualChildrenCount => 1;
 
-        public DragAdorner(UIElement adornedElement, Size size, Brush brush) : base(adornedElement)
+        public DragAdorner(UIElement adornedElement, Size size, Brush brush) 
+            : base(adornedElement)
         {
             Rectangle rectangle = new Rectangle
             {
